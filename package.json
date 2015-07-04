@@ -1,0 +1,27 @@
+{
+  "name": "RepoCreator",
+  "version": "1.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zoltu/RepoCreator-Client"
+  },
+  "author": "Zoltu",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/Zoltu/RepoCreator-Client/issues"
+  },
+  "homepage": "https://github.com/Zoltu/RepoCreator-Client",
+  "jspm": {
+    "directories": {
+      "baseURL": "dist"
+    },
+    "configFile": "dist/jspm-config.js",
+    "dependencies": {
+      "aurelia-bootstrapper": "github:aurelia/bootstrapper@^0.14.0"
+    },
+    "devDependencies": {
+      "typescript": "github:mhegazy/typescript@v1.5-beta2"
+    }
+  }
+}

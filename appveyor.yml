@@ -1,0 +1,29 @@
+version: 1.0.{build}
+clone_depth: 1
+environment:
+  JSPM_GITHUB_AUTH_TOKEN:
+    secure: HN1qYw/h4XQF3wB+6jTlKv76Mv76DvRfF2LV3Sc0COtZTdRHsxI+svr9i/JFEmNSaPsrohOVcDqds8tj85Iz+04Q6iqCBbsfCn4qwSFB8DM=
+install:
+- npm install
+- node_modules\.bin\jspm config registries.bower.handler jspm-bower-endpoint
+- node_modules\.bin\jspm config registries.bower.timeouts.lookup 300
+- node_modules\.bin\jspm config registries.bower.timeouts.build 300
+- node_modules\.bin\jspm config registries.github.timeouts.lookup 300
+- node_modules\.bin\jspm config registries.github.timeouts.build 300
+- node_modules\.bin\jspm config registries.github.auth %JSPM_GITHUB_AUTH_TOKEN%
+- node_modules\.bin\jspm config registries.npm.timeouts.lookup 300
+- node_modules\.bin\jspm config registries.npm.timeouts.build 300
+- node_modules\.bin\jspm install
+cache:
+- node_modules -> package.json
+- jspm_packages -> package.json
+artifacts:
+- path: dist
+deploy:
+- provider: WebDeploy
+  server: https://repo-creator-client.scm.azurewebsites.net:443/msdeploy.axd?site=repo-creator-client
+  website: repo-creator-client
+  username: $repo-creator-client
+  password:
+    secure: sLWehap9k7Mvve3I3acBaCOaDzkRrmJkEUm/wKkI93hU3HXuITHSMlANPimjtrOLBGbbSEzNUq6XqJSRSl3svw==
+  artifact: dist.zip
