@@ -1,5 +1,6 @@
 import { ConventionalViewStrategy } from 'aurelia-framework';
 
+// temporary fix while waiting for https://github.com/aurelia/templating/issues/121
 ConventionalViewStrategy.convertModuleIdToViewUrl= function(moduleId: any) {
 	var id = (moduleId.endsWith('.js') || moduleId.endsWith('.ts'))
 		? moduleId.substring(0, moduleId.length - 3)
