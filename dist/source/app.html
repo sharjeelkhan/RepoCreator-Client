@@ -1,3 +1,9 @@
 <template>
-	<h1>${content}</h1>
+	<require from="nav-bar"></require>
+
+	<nav-bar router.bind="router"></nav-bar>
+
+	<div class="page-host">
+		<router-view></router-view>
+	</div>
 </template>

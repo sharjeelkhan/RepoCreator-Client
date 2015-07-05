@@ -1,0 +1,9 @@
+.page-host {
+	position: absolute;
+	left: 20px;
+	right: 20px;
+	top: 50px;
+	bottom: 20px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}

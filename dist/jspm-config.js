@@ -4,7 +4,9 @@ System.config({
   "transpiler": "typescript",
   "paths": {
     "github:*": "jspm_packages/github/*",
-    "npm:*": "jspm_packages/npm/*"
+    "npm:*": "jspm_packages/npm/*",
+    "local-component/*": "source/components/*",
+    "bower:*": "jspm_packages/bower/*"
   },
   "packages": {
     "source": {
@@ -15,8 +17,29 @@ System.config({
 
 System.config({
   "map": {
+    "aurelia-binding": "github:aurelia/binding@0.8.0",
     "aurelia-bootstrapper": "github:aurelia/bootstrapper@0.14.0",
+    "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.9.0",
+    "aurelia-event-aggregator": "github:aurelia/event-aggregator@0.6.0",
+    "aurelia-http-client": "github:aurelia/http-client@0.10.0",
+    "aurelia-router": "github:aurelia/router@0.10.0",
+    "aurelia-templating": "github:aurelia/templating@0.13.1",
+    "auth0-lock": "github:auth0/lock@7.5.7",
+    "bootstrap": "github:twbs/bootstrap@3.3.5",
+    "bootstrap-sweetalert": "bower:bootstrap-sweetalert@0.4.5",
+    "css": "github:systemjs/plugin-css@0.1.13",
+    "font-awesome": "npm:font-awesome@4.3.0",
+    "jquery": "github:components/jquery@2.1.4",
+    "lz-string": "bower:lz-string@1.4.4",
+    "nav-bar": "local-component/nav-bar",
+    "pagedown": "npm:pagedown@1.1.0",
+    "progress-modal": "local-component/progress-modal",
+    "store": "npm:store@1.3.17",
     "typescript": "github:mhegazy/typescript@v1.5-beta2",
+    "underscore": "npm:underscore@1.8.3",
+    "bower:bootstrap-sweetalert@0.4.5": {
+      "css": "github:systemjs/plugin-css@0.1.13"
+    },
     "github:aurelia/binding@0.8.0": {
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.9.0",
       "aurelia-metadata": "github:aurelia/metadata@0.7.0",
@@ -58,6 +81,10 @@ System.config({
     },
     "github:aurelia/history-browser@0.6.0": {
       "aurelia-history": "github:aurelia/history@0.6.0",
+      "core-js": "npm:core-js@0.9.18"
+    },
+    "github:aurelia/http-client@0.10.0": {
+      "aurelia-path": "github:aurelia/path@0.8.0",
       "core-js": "npm:core-js@0.9.18"
     },
     "github:aurelia/loader-default@0.9.0": {
@@ -119,10 +146,23 @@ System.config({
     "github:jspm/nodelibs-process@0.1.1": {
       "process": "npm:process@0.10.1"
     },
+    "github:twbs/bootstrap@3.3.5": {
+      "jquery": "github:components/jquery@2.1.4"
+    },
     "npm:core-js@0.9.18": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "process": "github:jspm/nodelibs-process@0.1.1",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
+    },
+    "npm:font-awesome@4.3.0": {
+      "css": "github:systemjs/plugin-css@0.1.13"
+    },
+    "npm:pagedown@1.1.0": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
+    "npm:store@1.3.17": {
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "process": "github:jspm/nodelibs-process@0.1.1"
     }
   }
 });

@@ -1,4 +1,4 @@
-import { ConventionalViewStrategy } from 'aurelia-framework';
+import { ConventionalViewStrategy } from 'aurelia-templating';
 
 // temporary fix while waiting for https://github.com/aurelia/templating/issues/121
 ConventionalViewStrategy.convertModuleIdToViewUrl= function(moduleId: any) {

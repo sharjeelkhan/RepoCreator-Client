@@ -18,7 +18,23 @@
     },
     "configFile": "dist/jspm-config.js",
     "dependencies": {
-      "aurelia-bootstrapper": "github:aurelia/bootstrapper@^0.14.0"
+      "aurelia-binding": "github:aurelia/binding@^0.8.0",
+      "aurelia-bootstrapper": "github:aurelia/bootstrapper@^0.14.0",
+      "aurelia-dependency-injection": "github:aurelia/dependency-injection@^0.9.0",
+      "aurelia-event-aggregator": "github:aurelia/event-aggregator@^0.6.0",
+      "aurelia-http-client": "github:aurelia/http-client@^0.10.0",
+      "aurelia-router": "github:aurelia/router@^0.10.0",
+      "aurelia-templating": "github:aurelia/templating@^0.13.1",
+      "auth0/lock": "github:auth0/lock@^7.5.7",
+      "bootstrap": "github:twbs/bootstrap@^3.3.5",
+      "bootstrap-sweetalert": "bower:bootstrap-sweetalert@^0.4.5",
+      "css": "github:systemjs/plugin-css@^0.1.13",
+      "font-awesome": "npm:font-awesome@^4.3.0",
+      "jquery": "github:components/jquery@^2.1.4",
+      "lz-string": "bower:lz-string@^1.4.4",
+      "pagedown": "npm:pagedown@^1.1.0",
+      "store": "npm:store@^1.3.17",
+      "underscore": "npm:underscore@^1.8.3"
     },
     "devDependencies": {
       "typescript": "github:mhegazy/typescript@v1.5-beta2"
@@ -26,6 +42,8 @@
   },
   "devDependencies": {
     "http-static": "0.0.8",
-    "jspm": "^0.16.0-beta.3"
+    "jspm": "^0.16.0-beta.3",
+    "jspm-bower-endpoint": "^0.3.2",
+    "node-static": "^0.7.6"
   }
 }
