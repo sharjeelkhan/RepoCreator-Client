@@ -14,6 +14,7 @@ install:
 - node_modules\.bin\jspm config registries.npm.timeouts.lookup 300
 - node_modules\.bin\jspm config registries.npm.timeouts.build 300
 - node_modules\.bin\jspm install
+build: off
 cache:
 - node_modules -> package.json
 - jspm_packages -> package.json
