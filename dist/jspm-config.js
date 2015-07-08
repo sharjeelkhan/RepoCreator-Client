@@ -12,7 +12,8 @@ System.config({
     "source": {
       "defaultExtension": "ts"
     }
-  }
+  },
+  "buildCSS": false
 });
 
 System.config({
