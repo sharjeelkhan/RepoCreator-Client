@@ -2,16 +2,9 @@
   "name": "RepoCreator",
   "version": "1.0.0",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Zoltu/RepoCreator-Client"
+  "scripts": {
+    "start": "static dist"
   },
-  "author": "Zoltu",
-  "license": "CC0-1.0",
-  "bugs": {
-    "url": "https://github.com/Zoltu/RepoCreator-Client/issues"
-  },
-  "homepage": "https://github.com/Zoltu/RepoCreator-Client",
   "jspm": {
     "directories": {
       "baseURL": "dist"
