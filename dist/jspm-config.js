@@ -17,6 +17,14 @@ System.config({
 });
 
 System.config({
+  "meta": {
+    "https://proxy.zoltu.io/stripe/checkout.js": {
+      "format": "global"
+    }
+  }
+});
+
+System.config({
   "map": {
     "aurelia-binding": "github:aurelia/binding@0.8.0",
     "aurelia-bootstrapper": "github:aurelia/bootstrapper@0.14.0",
@@ -36,6 +44,7 @@ System.config({
     "pagedown": "npm:pagedown@1.1.0",
     "progress-modal": "local-component/progress-modal",
     "store": "npm:store@1.3.17",
+    "stripe-checkout": "https://proxy.zoltu.io/stripe/checkout.js",
     "typescript": "github:mhegazy/typescript@v1.5-beta2",
     "underscore": "npm:underscore@1.8.3",
     "bower:bootstrap-sweetalert@0.4.5": {

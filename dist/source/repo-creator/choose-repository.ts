@@ -1,9 +1,11 @@
 import { OAuth } from 'source/services/OAuth';
+import { StripeCheckout, StripeToken } from 'source/services/StripeCheckout';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { inject } from 'aurelia-dependency-injection';
 import { computedFrom } from 'aurelia-framework';
 import underscore from 'underscore';
+import './choose-repository.css!';
 
 class Repository {
 	constructor(
@@ -28,12 +30,17 @@ class Repository {
 	}
 
 	@computedFrom('favorite')
-	get style(): String {
-		return this.favorite ? 'color: yellow;' : '';
+	get favoriteStyle(): String {
+		return `color: ${this.favorite ? 'yellow' : 'white'}`;
+	}
+
+	@computedFrom('sponsored')
+	get sponsoredStyle(): String {
+		return `color: ${this.sponsored ? 'lime' : 'white'}`;
 	}
 }
 
-@inject(OAuth, Router, EventAggregator)
+@inject(OAuth, StripeCheckout, Router, EventAggregator)
 export class ChooseRepository {
 	private token: String;
 	private allTemplates: Repository[] = [];
@@ -44,6 +51,7 @@ export class ChooseRepository {
 
 	constructor(
 		private oAuth: OAuth,
+		private stripeCheckout: StripeCheckout,
 		private router: Router,
 		private eventAggregator: EventAggregator
 	) {}
@@ -79,6 +87,22 @@ export class ChooseRepository {
 			this.removeFavorite(repo);
 		else
 			this.addFavorite(repo);
+	}
+
+	protected sponsor = (repo: Repository) => {
+		if (repo.sponsored)
+			return;
+
+		this.oAuth.gitHubEmail.then((email: string) => {
+			return this.stripeCheckout.popup(email, 'Sponsor a repository so anyone can use it as a template!', 500, 'Sponsor');
+		}).then((value: StripeToken) => {
+			console.log('Purchase complete!');
+			// TODO: show processing
+			// TODO: tell server about card details
+			// TODO: poll the server for a result
+		}).catch((error: Error) => {
+			this.eventAggregator.publish(error);
+		});
 	}
 
 	private removeFavorite = (repo: Repository) => {

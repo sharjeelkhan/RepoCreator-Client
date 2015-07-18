@@ -1,25 +1,28 @@
 <template>
 	<h2>Choose Template Repository</h2>
 	<h4>Favorites</h4>
-	<div repeat.for="favoriteTemplate of favoriteTemplates">
-		<button type="button" class="btn btn-default" click.delegate="$parent.toggleFavorite(favoriteTemplate)"><i class="fa fa-star outlined" style="color: yellow;"></i></button>
-		<button type="button" class="btn btn-default" click.delegate="$parent.repoSelected(favoriteTemplate)">${favoriteTemplate.owner}: ${favoriteTemplate.name}</button>
+	<div repeat.for="template of favoriteTemplates">
+		<button type="button" class="btn btn-default" click.delegate="$parent.sponsor(template)" disabled.bind="template.sponsored"><i class="fa fa-usd outlined" css.bind="template.sponsoredStyle"></i></button>
+		<button type="button" class="btn btn-default" click.delegate="$parent.toggleFavorite(template)"><i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i></button>
+		<button type="button" class="btn btn-default" click.delegate="$parent.repoSelected(template)">${template.owner}: ${template.name}</button>
 	</div>
 
 	<hr>
 
 	<h4>Sponsored</h4>
-	<div repeat.for="sponsoredTemplate of sponsoredTemplates">
-		<button type="button" class="btn btn-default" click.delegate="$parent.toggleFavorite(sponsoredTemplate)"><i class="fa fa-star outlined" css.bind="sponsoredTemplate.style"></i></button>
-		<button type="button" class="btn btn-default" click.delegate="$parent.repoSelected(sponsoredTemplate)">${sponsoredTemplate.owner}: ${sponsoredTemplate.name}</button>
+	<div repeat.for="template of sponsoredTemplates">
+		<button type="button" class="btn btn-default" click.delegate="$parent.sponsor(template)" disabled.bind="template.sponsored"><i class="fa fa-usd outlined" css.bind="template.sponsoredStyle"></i></button>
+		<button type="button" class="btn btn-default" click.delegate="$parent.toggleFavorite(template)"><i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i></button>
+		<button type="button" class="btn btn-default" click.delegate="$parent.repoSelected(template)">${template.owner}: ${template.name}</button>
 	</div>
 
 	<hr>
 
 	<h4>Popular</h4>
-	<div repeat.for="popularTemplate of popularTemplates">
-		<button type="button" class="btn btn-default" click.delegate="$parent.toggleFavorite(popularTemplate)"><i class="fa fa-star outlined" css.bind="popularTemplate.style"></i></button>
-		<button type="button" class="btn btn-default" click.delegate="$parent.repoSelected(popularTemplate)">${popularTemplate.owner}: ${popularTemplate.name}</button>
+	<div repeat.for="template of popularTemplates">
+		<button type="button" class="btn btn-default" click.delegate="$parent.sponsor(template)" disabled.bind="template.sponsored"><i class="fa fa-usd outlined" css.bind="template.sponsoredStyle"></i></button>
+		<button type="button" class="btn btn-default" click.delegate="$parent.toggleFavorite(template)"><i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i></button>
+		<button type="button" class="btn btn-default" click.delegate="$parent.repoSelected(template)">${template.owner}: ${template.name}</button>
 	</div>
 
 	<hr>
@@ -51,9 +54,10 @@
 			</div>
 			<div class="col-md-12">
 				<div class="btn-group-vertical" rale="group">
-					<div  repeat.for="resultTemplate of resultTemplates">
-						<button type="button" class="btn btn-default" click.delegate="$parent.toggleFavorite(resultTemplate)"><i class="fa fa-star outlined" css.bind="resultTemplate.style"></i></button>
-						<button type="button" class="btn btn-default" click.delegate="$parent.repoSelected(resultTemplate)">${resultTemplate.owner}: ${resultTemplate.name}</button>
+					<div  repeat.for="template of resultTemplates">
+						<button type="button" class="btn btn-default" click.delegate="$parent.sponsor(template)" disabled.bind="template.sponsored"><i class="fa fa-usd outlined" css.bind="template.sponsoredStyle"></i></button>
+						<button type="button" class="btn btn-default" click.delegate="$parent.toggleFavorite(template)"><i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i></button>
+						<button type="button" class="btn btn-default" click.delegate="$parent.repoSelected(template)">${template.owner}: ${template.name}</button>
 					</div>
 				</div>
 			</div>

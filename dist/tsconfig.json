@@ -51,6 +51,7 @@
         "./source/repo-creator/index.ts",
         "./source/services/OAuth.ts",
         "./source/services/RepoCreator.ts",
+        "./source/services/StripeCheckout.ts",
         "./jspm_packages/bower/lz-string@1.4.4/typings/lz-string.d.ts",
         "./jspm_packages/github/aurelia/binding@0.8.0/aurelia-binding.d.ts",
         "./jspm_packages/github/aurelia/dependency-injection@0.9.0/aurelia-dependency-injection.d.ts",
@@ -85,6 +86,7 @@
         "./typings/jquery.d.ts",
         "./typings/pagedown.d.ts",
         "./typings/storejs.d.ts",
+        "./typings/stripe-checkout.d.ts",
         "./typings/underscore.d.ts"
     ]
 }
