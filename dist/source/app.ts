@@ -10,7 +10,7 @@ export class App {
 
 	private routes: any[] = [
 		{ route: '', redirect: 'about' },
-		{ route: 'repo-creator', moduleId: './repo-creator/index', nav: true, title: 'Try It!', authorize: true },
+		{ route: 'repo-creator', moduleId: './repo-creator/index', nav: true, title: 'Try It!' },
 		{ route: 'pricing', moduleId: './pricing', nav: true, title: 'Pricing' },
 		{ route: 'about', moduleId: './about', nav: true, title: 'About' }
 	];
@@ -21,7 +21,6 @@ export class App {
 
 	public configureRouter(config: RouterConfiguration, router: Router) {
 		config.title = 'Zoltu: RepoCreator';
-		config.addPipelineStep('authorize', AuthorizeStep);
 		config.map(this.routes);
 		this.router = router;
 	}

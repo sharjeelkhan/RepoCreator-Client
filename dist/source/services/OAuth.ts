@@ -54,10 +54,30 @@ class Auth0LockWrapper {
 
 export class OAuth {
 	private auth0: Auth0LockWrapper = new Auth0LockWrapper();
-	private userPromise: Promise<User> = Promise.reject<User>(new Error('Not logged in.'));
+	private _userPromise: Promise<User> = null;
 
-	get isLoggedIn(): Promise<boolean> {
-		return this.userPromise.then(_ => true).catch(_ => false);
+	private get userPromise(): Promise<User> {
+		// if already logged in, return that promise
+		if (this._userPromise)
+			return this._userPromise;
+
+		// attempt to login and save the attempt promise so other attempts to login while waiting will share in the results
+		this._userPromise = this.login();
+
+		// if login fails, assign back to null so that future attempts will re-attempt to login
+		// this is intentionally not chained because we don't want to swallow errors for other listeners
+		this._userPromise.catch(error => this._userPromise = null);
+
+		// return the promise that is currently attempting a login (note: this promise has no catch handler)
+		return this._userPromise;
+	}
+
+	get isLoggedIn(): boolean {
+		return !!this._userPromise;
+	}
+
+	get auth0Token(): Promise<string> {
+		return this.userPromise.then(user => user.idToken);
 	}
 
 	get gitHubAuthToken(): Promise<string> {
@@ -72,19 +92,18 @@ export class OAuth {
 		return this.userPromise.then(user => user.email);
 	}
 
-	login = (): Promise<void> => {
-		this.userPromise = this.auth0.showSignin({ connections: ['github'], socialBigButtons: true }).then(result => {
+	logout = (): void => {
+		this.auth0.logout();
+		this.userPromise = Promise.reject<User>(new Error('Not logged in.'));
+	}
+
+	private login = (): Promise<User> => {
+		return this.auth0.showSignin({ connections: ['github'], socialBigButtons: true }).then(result => {
 			let identities = underscore(result.profile.identities).reduce((result: Map<Identity>, identity: Identity) => {
 				result[identity.provider] = identity;
 				return result;
 			}, new Map<Identity>());
 			return new User(result.profile.user_id, result.profile.nickname, result.profile.email, result.idToken, identities);
 		});
-		return this.userPromise.then(_ => {});
-	}
-
-	logout = (): void => {
-		this.auth0.logout();
-		this.userPromise = Promise.reject<User>(new Error('Not logged in.'));
 	}
 }

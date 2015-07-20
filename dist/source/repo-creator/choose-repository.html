@@ -1,7 +1,8 @@
 <template>
 	<h2>Choose Template Repository</h2>
 	<h4>Favorites</h4>
-	<div repeat.for="template of favoriteTemplates">
+	<button if.bind="!loggedIn" type="button" class="btn btn-default" click.delegate="fetchFavorites()">Login to view favorites!</button>
+	<div if.bind="loggedIn" repeat.for="template of favoriteTemplates">
 		<button type="button" class="btn btn-default" click.delegate="$parent.sponsor(template)" disabled.bind="template.sponsored"><i class="fa fa-usd outlined" css.bind="template.sponsoredStyle"></i></button>
 		<button type="button" class="btn btn-default" click.delegate="$parent.toggleFavorite(template)"><i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i></button>
 		<button type="button" class="btn btn-default" click.delegate="$parent.repoSelected(template)">${template.owner}: ${template.name}</button>

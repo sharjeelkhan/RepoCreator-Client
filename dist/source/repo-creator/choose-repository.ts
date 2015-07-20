@@ -9,15 +9,15 @@ import './choose-repository.css!';
 
 class Repository {
 	constructor(
-		public owner: String,
-		public name: String,
+		public owner: string,
+		public name: string,
 		public favorite: boolean,
 		public sponsored: boolean,
 		public popular: boolean,
 		public result: boolean
 	) {}
 
-	equals = (other: Repository): Boolean => {
+	equals = (other: Repository): boolean => {
 		return this.owner == other.owner
 			&& this.name == other.name;
 	}
@@ -30,19 +30,18 @@ class Repository {
 	}
 
 	@computedFrom('favorite')
-	get favoriteStyle(): String {
+	get favoriteStyle(): string {
 		return `color: ${this.favorite ? 'yellow' : 'white'}`;
 	}
 
 	@computedFrom('sponsored')
-	get sponsoredStyle(): String {
+	get sponsoredStyle(): string {
 		return `color: ${this.sponsored ? 'lime' : 'white'}`;
 	}
 }
 
 @inject(OAuth, StripeCheckout, Router, EventAggregator)
 export class ChooseRepository {
-	private token: String;
 	private allTemplates: Repository[] = [];
 	private favoriteTemplates: Repository[] = [];
 	private sponsoredTemplates: Repository[] = [];
@@ -57,13 +56,14 @@ export class ChooseRepository {
 	) {}
 
 	activate() {
-		return this.oAuth.gitHubAuthToken.then(token => {
-			this.token = token;
-			this.fetchTemplates();
-		}).catch(error => {
-			this.eventAggregator.publish(error);
-			this.router.navigate('repo-creator', {});
-		});
+		this.fetchSponsored();
+		this.fetchPopular();
+		if (this.oAuth.isLoggedIn)
+			this.fetchFavorites();
+	}
+
+	get loggedIn(): boolean {
+		return this.oAuth.isLoggedIn;
 	}
 
 	protected search = () => {
@@ -82,7 +82,7 @@ export class ChooseRepository {
 		this.router.navigate(`replacements/${repo.owner}/${repo.name}`);
 	}
 
-	protected toggleFavorite = (repo: Repository) => {
+	protected toggleFavorite = (repo: Repository): void => {
 		if (repo.favorite)
 			this.removeFavorite(repo);
 		else
@@ -105,13 +105,13 @@ export class ChooseRepository {
 		});
 	}
 
-	private removeFavorite = (repo: Repository) => {
+	private removeFavorite = (repo: Repository): void => {
 		// TODO: tell server to un-favorite
 		repo.favorite = false;
 		this.updateTemplates();
 	}
 
-	private addFavorite = (repo: Repository) => {
+	private addFavorite = (repo: Repository): void => {
 		// TODO: tell server to favorite
 		repo.favorite = true;
 		this.updateTemplates();
@@ -123,15 +123,17 @@ export class ChooseRepository {
 			.filter((template: Repository) => template.favorite || template.sponsored || template.popular);
 	}
 
-	private fetchTemplates = () => {
+	protected fetchFavorites = (): void => {
 		// TODO: get favorites
-		setTimeout(() => {
+		this.oAuth.auth0Token.then(token => {
 			let favoriteTemplates = [
 				new Repository("Zoltu", "Templates.NuGet", true, false, false, false)
 			];
 			this.mergeTemplates(favoriteTemplates);
-		}, 500);
+		});
+	}
 
+	private fetchSponsored = (): void => {
 		// TODO: get sponsored
 		setTimeout(() => {
 			let sponsoredTemplates = [
@@ -140,7 +142,9 @@ export class ChooseRepository {
 			];
 			this.mergeTemplates(sponsoredTemplates);
 		}, 1000);
+	}
 
+	private fetchPopular = (): void => {
 		// TODO: get popular
 		setTimeout(() => {
 			let popularTemplates = [
