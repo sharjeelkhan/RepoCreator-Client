@@ -42,8 +42,9 @@ export class EnterReplacements {
 		this.activated = true;
 	}
 
-	@computedFrom('repoOwner','repoName')
-	protected get gitHubLink() { return `https://github.com/${this.repoOwner}/${this.repoName}/`; }
+	protected get gitHubLink() {
+		return `https://github.com/${this.repoOwner}/${this.repoName}/`;
+	}
 
 	protected onChanged = () => {
 		// setImmediate to avoid a jquery/Aurelia bug resulting in a console error message
@@ -108,6 +109,7 @@ export class EnterReplacements {
 			this.replacements = this.keysToReplacements(results);
 			this.onChanged();
 		}).catch((error: Error) => {
+			// TODO: pop-up error and then navigate back to choose-repository
 			this.eventAggregator.publish(error);
 		});
 	}
@@ -131,7 +133,7 @@ export class EnterReplacements {
 	}
 }
 
-// must be defined second so Aurelia doesn't think it is the view-model
+// must be defined second in the file so Aurelia doesn't think it is the view-model
 export class Replacement {
 	constructor(
 		public name: string,
@@ -140,8 +142,8 @@ export class Replacement {
 
 	@computedFrom('name')
 	get friendlyName(): string {
-		var regex = /magic[_\-\.](.*?)[_\-\.]magic/;
-		var match = regex.exec(this.name);
+		let regex = /magic[_\-\.](.*?)[_\-\.]magic/;
+		let match = regex.exec(this.name);
 		if (!match)
 			return this.name;
 

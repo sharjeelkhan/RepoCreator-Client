@@ -3,7 +3,6 @@ import { StripeCheckout, StripeToken } from 'source/services/StripeCheckout';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { inject } from 'aurelia-dependency-injection';
-import { computedFrom } from 'aurelia-framework';
 import underscore from 'underscore';
 import './choose-repository.css!';
 
@@ -29,12 +28,10 @@ class Repository {
 		this.result = this.result || other.result;
 	}
 
-	@computedFrom('favorite')
 	get favoriteStyle(): string {
 		return `color: ${this.favorite ? 'yellow' : 'white'}`;
 	}
 
-	@computedFrom('sponsored')
 	get sponsoredStyle(): string {
 		return `color: ${this.sponsored ? 'lime' : 'white'}`;
 	}
