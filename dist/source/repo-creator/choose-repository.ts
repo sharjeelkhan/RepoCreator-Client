@@ -2,7 +2,7 @@ import { OAuth } from 'source/services/OAuth';
 import { StripeCheckout, StripeToken } from 'source/services/StripeCheckout';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { inject } from 'aurelia-dependency-injection';
+import { autoinject } from 'aurelia-dependency-injection';
 import underscore from 'underscore';
 import './choose-repository.css!';
 
@@ -37,7 +37,7 @@ class Repository {
 	}
 }
 
-@inject(OAuth, StripeCheckout, Router, EventAggregator)
+@autoinject
 export class ChooseRepository {
 	private allTemplates: Repository[] = [];
 	private favoriteTemplates: Repository[] = [];

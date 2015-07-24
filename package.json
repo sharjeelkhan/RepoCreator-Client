@@ -31,7 +31,7 @@
       "underscore": "npm:underscore@^1.8.3"
     },
     "devDependencies": {
-      "typescript": "github:mhegazy/typescript@v1.5-beta2"
+      "typescript": "npm:typescript@^1.6.0-dev.20150722.1"
     }
   },
   "devDependencies": {
