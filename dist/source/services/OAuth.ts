@@ -11,14 +11,14 @@ class User {
 		public userId: string,
 		public nickname: string,
 		public email: string,
-		public idToken: string,
+		public jwtToken: string,
 		public identities: Map<Identity>
 	) {}
 }
 
 interface SigninResult {
 	profile: Profile;
-	idToken: string;
+	jwtToken: string;
 }
 
 class Auth0LockWrapper {
@@ -41,7 +41,7 @@ class Auth0LockWrapper {
 				else
 					signinResult = {
 						profile: profile,
-						idToken: idToken
+						jwtToken: idToken
 					};
 			});
 		});
@@ -76,8 +76,15 @@ export class OAuth {
 		return !!this._userPromise;
 	}
 
-	get auth0Token(): Promise<string> {
-		return this.userPromise.then(user => user.idToken);
+	get maybeJwtToken(): Promise<string> {
+		if (!this._userPromise)
+			return Promise.resolve<string>(null);
+
+		return this._userPromise.then(user => user.jwtToken);
+	}
+
+	get jwtToken(): Promise<string> {
+		return this.userPromise.then(user => user.jwtToken);
 	}
 
 	get gitHubAuthToken(): Promise<string> {
@@ -98,12 +105,12 @@ export class OAuth {
 	}
 
 	private login = (): Promise<User> => {
-		return this.auth0.showSignin({ connections: ['github'], socialBigButtons: true }).then(result => {
+		return this.auth0.showSignin({ connections: ['github'], socialBigButtons: true, authParams: { scope: 'openid identities' } }).then(result => {
 			let identities = underscore(result.profile.identities).reduce((result: Map<Identity>, identity: Identity) => {
 				result[identity.provider] = identity;
 				return result;
 			}, new Map<Identity>());
-			return new User(result.profile.user_id, result.profile.nickname, result.profile.email, result.idToken, identities);
+			return new User(result.profile.user_id, result.profile.nickname, result.profile.email, result.jwtToken, identities);
 		});
 	}
 }

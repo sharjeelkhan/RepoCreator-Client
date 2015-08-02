@@ -122,7 +122,7 @@ export class ChooseRepository {
 
 	protected fetchFavorites = (): void => {
 		// TODO: get favorites
-		this.oAuth.auth0Token.then(token => {
+		this.oAuth.jwtToken.then(token => {
 			let favoriteTemplates = [
 				new Repository("Zoltu", "Templates.NuGet", true, false, false, false)
 			];

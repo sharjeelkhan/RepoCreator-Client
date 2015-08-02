@@ -1,4 +1,4 @@
-import { inject } from 'aurelia-dependency-injection';
+import { autoinject } from 'aurelia-dependency-injection';
 import { HttpClient, RequestBuilder, HttpResponseMessage } from 'aurelia-http-client';
 import { OAuth } from 'source/services/OAuth';
 import { Repository } from 'source/models/Repository';
@@ -7,7 +7,7 @@ import { Request as CreateRepoRequest, Progress as CreateRepoProgress, Step as C
 
 let baseUri: string = 'https://repocreator-api.zoltu.io';
 
-@inject(HttpClient, OAuth)
+@autoinject
 export class RepoCreator {
 	// TODO: HttpClient should be injected with transient.
 	constructor(private httpClient: HttpClient, private oAuth: OAuth) {
@@ -16,17 +16,19 @@ export class RepoCreator {
 	}
 
 	findKeys(repoOwner: string, repoName: string): Promise<string[]> {
-		return this.oAuth.gitHubAuthToken.then(accessToken => {
-			let repository = new Repository('GitHub', accessToken, repoOwner, repoName);
+		return this.oAuth.maybeJwtToken.then(jwtToken => {
+			if (jwtToken)
+				this.httpClient.configure((builder: RequestBuilder) => builder['withHeader']('Authorization', 'Bearer ' + jwtToken));
+			let repository = new Repository('GitHub', repoOwner, repoName);
 			let request = new FindKeysRequest(repository);
 			return new Promise((resolve: (result: string[]) => void, reject: (error: Error) => void) => new FindKeys(this.httpClient, request, resolve, reject).execute());
-		})
+		});
 	}
 
 	createRepo(templateRepoOwner: string, templateRepoName: string, destinationRepoName: string, replacements: any): Promise<string> {
-		return this.oAuth.gitHubAuthToken.then(accessToken => this.oAuth.gitHubLogin.then(login => {
-			let templateRepository = new Repository('GitHub', accessToken, templateRepoOwner, templateRepoName);
-			let destinationRepository = new Repository('GitHub', accessToken, login, destinationRepoName);
+		return this.oAuth.jwtToken.then(jwtToken => this.oAuth.gitHubLogin.then(login => {
+			let templateRepository = new Repository('GitHub', templateRepoOwner, templateRepoName);
+			let destinationRepository = new Repository('GitHub', login, destinationRepoName);
 			let request = new CreateRepoRequest(destinationRepository, templateRepository, replacements);
 			return new Promise((resolve: (result: any) => void, reject: (error: Error) => void) => new CreateRepo(this.httpClient, request, resolve, reject).execute());
 		}));
@@ -47,10 +49,8 @@ class CreateRepo {
 	}
 
 	success(httpResponseMessage: HttpResponseMessage): void {
-		let token = httpResponseMessage.content;
-		if (typeof token !== 'string')
-			throw new Error(`Expected token as string but received ${typeof token}.`);
-		this.progress(<string>token);
+		let token = httpResponseMessage.response;
+		this.progress(token);
 	}
 
 	failure(httpResponseMessage: HttpResponseMessage): void {
