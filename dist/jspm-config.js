@@ -50,7 +50,7 @@ System.config({
     "progress-modal": "local-component/progress-modal",
     "store": "npm:store@1.3.17",
     "stripe-checkout": "https://proxy.zoltu.io/stripe/checkout.js",
-    "typescript": "npm:typescript@1.6.0-dev.20150723",
+    "typescript": "npm:typescript@1.6.0-dev.20150802",
     "underscore": "npm:underscore@1.8.3",
     "bower:bootstrap-sweetalert@0.4.5": {
       "css": "github:systemjs/plugin-css@0.1.13"
@@ -205,7 +205,7 @@ System.config({
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
-    "npm:typescript@1.6.0-dev.20150723": {
+    "npm:typescript@1.6.0-dev.20150802": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "child_process": "github:jspm/nodelibs-child_process@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
