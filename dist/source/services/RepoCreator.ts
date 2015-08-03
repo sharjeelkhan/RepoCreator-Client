@@ -27,6 +27,8 @@ export class RepoCreator {
 
 	createRepo(templateRepoOwner: string, templateRepoName: string, destinationRepoName: string, replacements: any): Promise<string> {
 		return this.oAuth.jwtToken.then(jwtToken => this.oAuth.gitHubLogin.then(login => {
+			if (jwtToken)
+				this.httpClient.configure((builder: RequestBuilder) => builder['withHeader']('Authorization', 'Bearer ' + jwtToken));
 			let templateRepository = new Repository('GitHub', templateRepoOwner, templateRepoName);
 			let destinationRepository = new Repository('GitHub', login, destinationRepoName);
 			let request = new CreateRepoRequest(destinationRepository, templateRepository, replacements);
