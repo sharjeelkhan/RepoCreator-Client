@@ -49,7 +49,7 @@ class CreateRepo {
 	}
 
 	success(httpResponseMessage: HttpResponseMessage): void {
-		let token = httpResponseMessage.response;
+		let token = httpResponseMessage.content;
 		this.progress(token);
 	}
 
