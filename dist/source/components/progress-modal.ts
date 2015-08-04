@@ -1,4 +1,4 @@
-import { customElement, useView, bindable } from 'aurelia-framework';
+import { customElement, useView, bindable } from 'aurelia-templating';
 import jquery from 'jquery';
 import 'bootstrap';
 import 'bootstrap/css/bootstrap.css!';
