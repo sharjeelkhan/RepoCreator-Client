@@ -9,7 +9,8 @@ System.config({
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*",
     "local-component/*": "source/components/*",
-    "bower:*": "jspm_packages/bower/*"
+    "bower:*": "jspm_packages/bower/*",
+    "stripe-checkout": "https://proxy.zoltu.io/stripe/checkout.js"
   },
   "packages": {
     "source": {
@@ -22,7 +23,8 @@ System.config({
 System.config({
   "meta": {
     "https://proxy.zoltu.io/stripe/checkout.js": {
-      "format": "global"
+      "format": "global",
+      "build": false
     }
   }
 });
