@@ -58,7 +58,7 @@ export class EnterReplacements {
 		let replacementsMap = underscore(this.replacements).reduce((map: any, replacement: Replacement) => {
 			map[replacement.name] = replacement.value;
 			return map;
-		});
+		}, {});
 		let promise = this.repoCreator.createRepo(this.repoOwner, this.repoName, this.newRepoName, replacementsMap);
 		promise.then((result: string) => {
 			sweetAlert.sweetAlert({
