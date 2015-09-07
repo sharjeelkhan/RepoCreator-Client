@@ -1,16 +1,21 @@
 import { autoinject } from 'aurelia-dependency-injection';
 import { HttpClient, RequestBuilder, HttpResponseMessage } from 'aurelia-http-client';
 import { OAuth } from 'source/services/OAuth';
+import { StripeCheckout, StripeToken } from 'source/services/StripeCheckout';
 import { Repository } from 'source/models/Repository';
 import { Request as FindKeysRequest, Progress as FindKeysProgress, Step as FindKeysProgressStep } from 'source/models/FindKeys';
 import { Request as CreateRepoRequest, Progress as CreateRepoProgress, Step as CreateRepoProgressStep } from 'source/models/CreateRepo';
+import underscore from 'underscore';
 
 let baseUri: string = 'https://repocreator-api.zoltu.io';
 
 @autoinject
 export class RepoCreator {
 	// TODO: HttpClient should be injected with transient.
-	constructor(private httpClient: HttpClient, private oAuth: OAuth) {
+	constructor(
+		private httpClient: HttpClient,
+		private oAuth: OAuth,
+		private stripeCheckout: StripeCheckout) {
 		this.httpClient.configure((builder: RequestBuilder) => builder['withHeader']('Accept', 'application/json'));
 		this.httpClient.configure((builder: RequestBuilder) => builder['withHeader']('Content-Type', 'application/json'));
 	}
@@ -35,6 +40,24 @@ export class RepoCreator {
 			return new Promise((resolve: (result: any) => void, reject: (error: Error) => void) => new CreateRepo(this.httpClient, request, resolve, reject).execute());
 		}));
 	}
+
+	getSponsored(): Promise<Repository[]> {
+		return this.httpClient.get(`${baseUri}/api/sponsored`)
+			.then((response: HttpResponseMessage) => underscore(response.content).map((item: any) => Repository.deserialize(item)));
+	}
+
+	sponsor(repository: Repository): Promise<Repository[]> {
+		return this.oAuth.jwtToken.then(jwtToken => this.oAuth.gitHubEmail.then(email => {
+			return this.stripeCheckout.popup(email, 'Sponsor a repository so anyone can use it as a template!', 500, 'Sponsor');
+		}).then(value => {
+			// TODO: show processing
+			let paymentToken = value.id;
+			this.httpClient.configure((builder: RequestBuilder) => builder['withHeader']('Authorization', 'Bearer ' + jwtToken));
+			return this.httpClient.put(`${baseUri}/api/sponsored/add`, { 'payment_token': paymentToken, 'repository': repository })
+		}).then((response: HttpResponseMessage) => {
+			return underscore(response.content).map((item: any) => Repository.deserialize(item))
+		}));
+	}
 }
 
 class CreateRepo {
@@ -51,7 +74,7 @@ class CreateRepo {
 	}
 
 	success(httpResponseMessage: HttpResponseMessage): void {
-		let token = httpResponseMessage.content;
+		let token = <string>httpResponseMessage.content;
 		this.progress(token);
 	}
 

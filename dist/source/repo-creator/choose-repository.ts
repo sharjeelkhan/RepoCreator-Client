@@ -1,3 +1,5 @@
+import { RepoCreator } from 'source/services/RepoCreator';
+import { Repository as RepositoryWireModel } from 'source/models/Repository';
 import { OAuth } from 'source/services/OAuth';
 import { StripeCheckout, StripeToken } from 'source/services/StripeCheckout';
 import { Router } from 'aurelia-router';
@@ -48,6 +50,7 @@ export class ChooseRepository {
 	constructor(
 		private oAuth: OAuth,
 		private stripeCheckout: StripeCheckout,
+		private repoCreator: RepoCreator,
 		private router: Router,
 		private eventAggregator: EventAggregator
 	) {}
@@ -90,13 +93,9 @@ export class ChooseRepository {
 		if (repo.sponsored)
 			return;
 
-		this.oAuth.gitHubEmail.then((email: string) => {
-			return this.stripeCheckout.popup(email, 'Sponsor a repository so anyone can use it as a template!', 500, 'Sponsor');
-		}).then((value: StripeToken) => {
-			console.log('Purchase complete!');
-			// TODO: show processing
-			// TODO: tell server about card details
-			// TODO: poll the server for a result
+		this.repoCreator.sponsor(new RepositoryWireModel("GitHub", repo.owner, repo.name)).then((wireModels: RepositoryWireModel[]) => {
+			let repos = underscore(wireModels).map((wireModel: RepositoryWireModel) => new Repository(wireModel.owner, wireModel.name, false, true, false, false))
+			this.mergeTemplates(repos);
 		}).catch((error: Error) => {
 			this.eventAggregator.publish(error);
 		});
@@ -131,14 +130,10 @@ export class ChooseRepository {
 	}
 
 	private fetchSponsored = (): void => {
-		// TODO: get sponsored
-		setTimeout(() => {
-			let sponsoredTemplates = [
-				new Repository("Zoltu", "Templates.NuGet", false, true, false, false),
-				new Repository("apple", "banana", false, true, false, false)
-			];
+		this.repoCreator.getSponsored().then((repos: RepositoryWireModel[]) => {
+			let sponsoredTemplates = underscore(repos).map((repo: RepositoryWireModel) => new Repository(repo.owner, repo.name, false, true, false, false));
 			this.mergeTemplates(sponsoredTemplates);
-		}, 1000);
+		});
 	}
 
 	private fetchPopular = (): void => {
