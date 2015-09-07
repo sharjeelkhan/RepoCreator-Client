@@ -41,9 +41,22 @@ export class RepoCreator {
 		}));
 	}
 
+	getPopular(): Promise<Repository[]> {
+		return this.httpClient.createRequest(`${baseUri}/api/popular/`)
+			.asGet()
+			.withHeader('Accept', 'application/json')
+			.withHeader('Content-Type', 'application/json')
+			.send()
+			.then(response => underscore(response.content).map(item => Repository.deserialize(item)));
+	}
+
 	getSponsored(): Promise<Repository[]> {
-		return this.httpClient.get(`${baseUri}/api/sponsored`)
-			.then((response: HttpResponseMessage) => underscore(response.content).map((item: any) => Repository.deserialize(item)));
+		return this.httpClient.createRequest(`${baseUri}/api/sponsored/`)
+			.asGet()
+			.withHeader('Accept', 'application/json')
+			.withHeader('Content-Type', 'application/json')
+			.send()
+			.then(response => underscore(response.content).map(item => Repository.deserialize(item)));
 	}
 
 	sponsor(repository: Repository): Promise<Repository[]> {
@@ -52,11 +65,50 @@ export class RepoCreator {
 		}).then(value => {
 			// TODO: show processing
 			let paymentToken = value.id;
-			this.httpClient.configure((builder: RequestBuilder) => builder['withHeader']('Authorization', 'Bearer ' + jwtToken));
-			return this.httpClient.put(`${baseUri}/api/sponsored/add`, { 'payment_token': paymentToken, 'repository': repository })
+			this.httpClient.configure(builder => builder['withHeader']('Authorization', 'Bearer ' + jwtToken));
+			return this.httpClient.put(`${baseUri}/api/sponsored/add/`, { 'payment_token': paymentToken, 'repository': repository })
 		}).then((response: HttpResponseMessage) => {
 			return underscore(response.content).map((item: any) => Repository.deserialize(item))
 		}));
+	}
+
+	getFavorites(): Promise<Repository[]> {
+		return this.oAuth.jwtToken.then(jwtToken => {
+			return this.httpClient.createRequest(`${baseUri}/api/favorites/`)
+				.asGet()
+				.withHeader('Authorization', `Bearer ${jwtToken}`)
+				.withHeader('Accept', 'application/json')
+				.withHeader('Content-Type', 'application/json')
+				.send();
+		}).then(response => {
+			return underscore(response.content).map(item => Repository.deserialize(item));
+		});
+	}
+
+	addFavorite(repository: Repository): Promise<Repository[]> {
+		return this.oAuth.jwtToken.then(jwtToken => {
+			return this.httpClient.createRequest(`${baseUri}/api/favorites/${repository.owner}/${repository.name}/`)
+				.asPut()
+				.withHeader('Authorization', `Bearer ${jwtToken}`)
+				.withHeader('Accept', 'application/json')
+				.withHeader('Content-Type', 'application/json')
+				.send();
+		}).then(response => {
+			return underscore(response.content).map(item => Repository.deserialize(item));
+		});
+	}
+
+	removeFavorite(repository: Repository): Promise<Repository[]> {
+		return this.oAuth.jwtToken.then(jwtToken => {
+			return this.httpClient.createRequest(`${baseUri}/api/favorites/${repository.owner}/${repository.name}/`)
+				.asDelete()
+				.withHeader('Authorization', `Bearer ${jwtToken}`)
+				.withHeader('Accept', 'application/json')
+				.withHeader('Content-Type', 'application/json')
+				.send();
+		}).then(response => {
+			return underscore(response.content).map(item => Repository.deserialize(item));
+		});
 	}
 }
 

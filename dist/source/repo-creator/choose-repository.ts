@@ -98,6 +98,7 @@ export class ChooseRepository {
 
 		this.repoCreator.sponsor(new RepositoryWireModel("GitHub", repo.owner, repo.name)).then((wireModels: RepositoryWireModel[]) => {
 			let repos = underscore(wireModels).map((wireModel: RepositoryWireModel) => new Repository(wireModel.owner, wireModel.name, false, true, false, false))
+			this.clearSponsored();
 			this.mergeTemplates(repos);
 		}).catch((error: Error) => {
 			this.eventAggregator.publish(error);
@@ -105,29 +106,58 @@ export class ChooseRepository {
 	}
 
 	private removeFavorite = (repo: Repository): void => {
-		// TODO: tell server to un-favorite
-		repo.favorite = false;
-		this.updateTemplates();
+		let wireModel = new RepositoryWireModel("GitHub", repo.owner, repo.name);
+		this.repoCreator.removeFavorite(wireModel).then(favorites => {
+			let favoriteTemplates = underscore(favorites).map(favorite => new Repository(favorite.owner, favorite.name, true, false, false, false));
+			this.clearFavorites();
+			this.mergeTemplates(favoriteTemplates);
+		}).catch((error: Error) => {
+			this.eventAggregator.publish(error);
+		});
 	}
 
 	private addFavorite = (repo: Repository): void => {
-		// TODO: tell server to favorite
-		repo.favorite = true;
-		this.updateTemplates();
+		let wireModel = new RepositoryWireModel("GitHub", repo.owner, repo.name);
+		this.repoCreator.addFavorite(wireModel).then(favorites => {
+			let favoriteTemplates = underscore(favorites).map(favorite => new Repository(favorite.owner, favorite.name, true, false, false, false));
+			this.clearFavorites();
+			this.mergeTemplates(favoriteTemplates);
+		}).catch((error: Error) => {
+			this.eventAggregator.publish(error);
+		});
+	}
+
+	// ----
+
+	private clearPopular = () => {
+		this.allTemplates = underscore(this.allTemplates)
+			.each(template => template.popular = false)
+			.filter(template => template.result || template.favorite || template.sponsored || template.popular);
+	}
+
+	private clearSponsored = () => {
+		this.allTemplates = underscore(this.allTemplates)
+			.each(template => template.sponsored = false)
+			.filter(template => template.result || template.favorite || template.sponsored || template.popular);
+	}
+
+	private clearFavorites = () => {
+		this.allTemplates = underscore(this.allTemplates)
+			.each(template => template.favorite = false)
+			.filter(template => template.result || template.favorite || template.sponsored || template.popular);
 	}
 
 	private clearSearchResults = () => {
 		this.allTemplates = underscore(this.allTemplates)
-			.each((template: Repository) => template.result = false)
-			.filter((template: Repository) => template.favorite || template.sponsored || template.popular);
+		.each(template => template.result = false)
+		.filter(template => template.result || template.favorite || template.sponsored || template.popular);
 	}
 
+	// ----
+
 	protected fetchFavorites = (): void => {
-		// TODO: get favorites
-		this.oAuth.jwtToken.then(token => {
-			let favoriteTemplates = [
-				new Repository("Zoltu", "Templates.NuGet", true, false, false, false)
-			];
+		this.repoCreator.getFavorites().then(favorites => {
+			let favoriteTemplates = underscore(favorites).map(favorite => new Repository(favorite.owner, favorite.name, true, false, false, false));
 			this.mergeTemplates(favoriteTemplates);
 		}).catch((error: Error) => {
 			this.eventAggregator.publish(error);
@@ -144,15 +174,15 @@ export class ChooseRepository {
 	}
 
 	private fetchPopular = (): void => {
-		// TODO: get popular
-		setTimeout(() => {
-			let popularTemplates = [
-				new Repository("zip", "zap", false, false, true, false),
-				new Repository("apple", "banana", false, false, true, false)
-			];
+		this.repoCreator.getPopular().then((repos: RepositoryWireModel[]) => {
+			let popularTemplates = underscore(repos).map((repo: RepositoryWireModel) => new Repository(repo.owner, repo.name, false, false, true, false));
 			this.mergeTemplates(popularTemplates);
-		}, 1500);
+		}).catch((error: Error) => {
+			this.eventAggregator.publish(error);
+		});
 	}
+
+	// ----
 
 	private mergeTemplates = (repos: Repository[]) => {
 		repos.forEach(repo => {
