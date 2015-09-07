@@ -1,6 +1,7 @@
 import { RepoCreator } from 'source/services/RepoCreator';
 import { Repository as RepositoryWireModel } from 'source/models/Repository';
 import { OAuth } from 'source/services/OAuth';
+import { GitHub } from 'source/services/GitHub';
 import { StripeCheckout, StripeToken } from 'source/services/StripeCheckout';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
@@ -47,10 +48,14 @@ export class ChooseRepository {
 	private popularTemplates: Repository[] = [];
 	private resultTemplates: Repository[] = [];
 
+	protected inputOwner: string;
+	protected inputRepo: string;
+
 	constructor(
 		private oAuth: OAuth,
 		private stripeCheckout: StripeCheckout,
 		private repoCreator: RepoCreator,
+		private gitHub: GitHub,
 		private router: Router,
 		private eventAggregator: EventAggregator
 	) {}
@@ -68,14 +73,12 @@ export class ChooseRepository {
 
 	protected search = () => {
 		this.clearSearchResults();
-		setTimeout(() => {
-			let resultTemplates = [
-				new Repository('Zoltu', 'Templates.NuGet', false, false, false, true),
-				new Repository('Zoltu', 'Templates-Aurelia-TypeScript', false, false, false, true),
-				new Repository('Zoltu', 'Templates.TypeScript.Aurelia.CustomElement', false, false, false, true)
-			];
+		this.gitHub.search(this.inputOwner, this.inputRepo).then(searchResults => {
+			let resultTemplates = underscore(searchResults).map(searchResult => new Repository(searchResult.owner.login, searchResult.name, false, false, false, true));
 			this.mergeTemplates(resultTemplates);
-		}, 1500);
+		}).catch((error: Error) => {
+			this.eventAggregator.publish(error);
+		});
 	}
 
 	protected repoSelected = (repo: Repository) => {
@@ -126,6 +129,8 @@ export class ChooseRepository {
 				new Repository("Zoltu", "Templates.NuGet", true, false, false, false)
 			];
 			this.mergeTemplates(favoriteTemplates);
+		}).catch((error: Error) => {
+			this.eventAggregator.publish(error);
 		});
 	}
 
@@ -133,6 +138,8 @@ export class ChooseRepository {
 		this.repoCreator.getSponsored().then((repos: RepositoryWireModel[]) => {
 			let sponsoredTemplates = underscore(repos).map((repo: RepositoryWireModel) => new Repository(repo.owner, repo.name, false, true, false, false));
 			this.mergeTemplates(sponsoredTemplates);
+		}).catch((error: Error) => {
+			this.eventAggregator.publish(error);
 		});
 	}
 

@@ -87,6 +87,13 @@ export class OAuth {
 		return this.userPromise.then(user => user.jwtToken);
 	}
 
+	get maybeGitHubAuthToken(): Promise<string> {
+		if (!this._userPromise)
+			return Promise.resolve<string>(null);
+
+		return this._userPromise.then(user => user.identities['github']['access_token']);
+	}
+
 	get gitHubAuthToken(): Promise<string> {
 		return this.userPromise.then(user => user.identities['github']['access_token']);
 	}

@@ -11,9 +11,9 @@ let baseUri: string = 'https://repocreator-api.zoltu.io';
 
 @autoinject
 export class RepoCreator {
-	// TODO: HttpClient should be injected with transient.
+	httpClient: HttpClient = new HttpClient();
+
 	constructor(
-		private httpClient: HttpClient,
 		private oAuth: OAuth,
 		private stripeCheckout: StripeCheckout) {
 		this.httpClient.configure((builder: RequestBuilder) => builder['withHeader']('Accept', 'application/json'));
@@ -23,7 +23,7 @@ export class RepoCreator {
 	findKeys(repoOwner: string, repoName: string): Promise<string[]> {
 		return this.oAuth.maybeJwtToken.then(jwtToken => {
 			if (jwtToken)
-				this.httpClient.configure((builder: RequestBuilder) => builder['withHeader']('Authorization', 'Bearer ' + jwtToken));
+				this.httpClient.configure(builder => builder['withHeader']('Authorization', `Bearer ${jwtToken}`));
 			let repository = new Repository('GitHub', repoOwner, repoName);
 			let request = new FindKeysRequest(repository);
 			return new Promise((resolve: (result: string[]) => void, reject: (error: Error) => void) => new FindKeys(this.httpClient, request, resolve, reject).execute());
@@ -33,7 +33,7 @@ export class RepoCreator {
 	createRepo(templateRepoOwner: string, templateRepoName: string, destinationRepoName: string, replacements: any): Promise<string> {
 		return this.oAuth.jwtToken.then(jwtToken => this.oAuth.gitHubLogin.then(login => {
 			if (jwtToken)
-				this.httpClient.configure((builder: RequestBuilder) => builder['withHeader']('Authorization', 'Bearer ' + jwtToken));
+				this.httpClient.configure(builder => builder['withHeader']('Authorization', `Bearer ${jwtToken}`));
 			let templateRepository = new Repository('GitHub', templateRepoOwner, templateRepoName);
 			let destinationRepository = new Repository('GitHub', login, destinationRepoName);
 			let request = new CreateRepoRequest(destinationRepository, templateRepository, replacements);

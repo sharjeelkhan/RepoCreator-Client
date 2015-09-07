@@ -49,6 +49,7 @@
         "./source/repo-creator/choose-repository.ts",
         "./source/repo-creator/enter-replacements.ts",
         "./source/repo-creator/index.ts",
+        "./source/services/GitHub.ts",
         "./source/services/OAuth.ts",
         "./source/services/RepoCreator.ts",
         "./source/services/StripeCheckout.ts",
