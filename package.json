@@ -12,14 +12,14 @@
     },
     "configFile": "dist/jspm-config.js",
     "dependencies": {
-      "aurelia-binding": "github:aurelia/binding@^0.8.0",
-      "aurelia-bootstrapper": "github:aurelia/bootstrapper@^0.14.0",
-      "aurelia-computed": "github:jdanyow/aurelia-computed@^0.3.0",
-      "aurelia-dependency-injection": "github:aurelia/dependency-injection@^0.9.0",
-      "aurelia-event-aggregator": "github:aurelia/event-aggregator@^0.6.0",
-      "aurelia-http-client": "github:aurelia/http-client@^0.10.0",
-      "aurelia-router": "github:aurelia/router@^0.10.0",
-      "aurelia-templating": "github:aurelia/templating@^0.13.1",
+      "aurelia-binding": "github:aurelia/binding@^0.9.1",
+      "aurelia-bootstrapper": "github:aurelia/bootstrapper@^0.17.0",
+      "aurelia-computed": "github:jdanyow/aurelia-computed@^0.6.0",
+      "aurelia-dependency-injection": "github:aurelia/dependency-injection@^0.10.1",
+      "aurelia-event-aggregator": "github:aurelia/event-aggregator@^0.8.0",
+      "aurelia-http-client": "github:aurelia/http-client@^0.11.0",
+      "aurelia-router": "github:aurelia/router@^0.12.0",
+      "aurelia-templating": "github:aurelia/templating@^0.15.3",
       "auth0/lock": "github:auth0/lock@^7.5.7",
       "bootstrap": "github:twbs/bootstrap@^3.3.5",
       "bootstrap-sweetalert": "bower:bootstrap-sweetalert@^0.4.5",
@@ -32,7 +32,7 @@
       "underscore": "npm:underscore@^1.8.3"
     },
     "devDependencies": {
-      "typescript": "npm:typescript@1.7.0-dev.20150926"
+      "typescript": "npm:typescript@^1.6.2"
     }
   },
   "devDependencies": {

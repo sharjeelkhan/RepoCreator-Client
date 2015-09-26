@@ -13,8 +13,7 @@
         "preserveConstEnums": true,
         "removeComments": false,
         "sourceMap": true,
-        "suppressImplicitAnyIndexErrors": true,
-        "experimentalAsyncFunctions": true
+        "suppressImplicitAnyIndexErrors": true
     },
     "formatCodeOptions": {
         "indentSize": 4,
