@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "prepublish": "jspm install",
     "start": "static dist"
   },
   "jspm": {
@@ -31,13 +32,12 @@
       "underscore": "npm:underscore@^1.8.3"
     },
     "devDependencies": {
-      "typescript": "npm:typescript@^1.6.0-dev.20150805"
+      "typescript": "npm:typescript@1.7.0-dev.20150926"
     }
   },
   "devDependencies": {
-    "http-static": "0.0.8",
-    "jspm": "^0.16.0-beta.3",
+    "jspm": "^0.16.10",
     "jspm-bower-endpoint": "^0.3.2",
-    "node-static": "^0.7.6"
+    "node-static": "^0.7.7"
   }
 }
