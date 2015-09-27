@@ -1,4 +1,4 @@
-### Build
+### Build (only required once on checkout)
 ```
 npm install
 node_modules/.bin/jspm install
