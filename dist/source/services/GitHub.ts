@@ -13,23 +13,10 @@ export class GitHub {
 		this.httpClient.configure((builder: RequestBuilder) => builder['withHeader']('Content-Type', 'application/json'));
 	}
 
-	public search(user: string, name: string): Promise<SearchResult[]> {
+	public search(query: string): Promise<SearchResult[]> {
 		return this.oAuth.maybeGitHubAuthToken.then(maybeGitHubAuthToken => {
 			if (maybeGitHubAuthToken)
 				this.httpClient.configure(builder => builder['withHeader']('Authorization', `token ${maybeGitHubAuthToken}`));
-
-			let userQuery = user ? `user:${user}` : '';
-			let nameQuery = name ? `in:name+${name}` : '';
-
-			if (!userQuery && !nameQuery)
-				return Promise.resolve([]);
-
-			if (userQuery && nameQuery)
-				var query = `${userQuery}+${nameQuery}`;
-			else if (userQuery)
-				query = userQuery;
-			else
-				query = nameQuery;
 
 			return this.httpClient.get(`https://api.github.com/search/repositories?q=${query}`).then(response => (<SearchResults>response.content).items);
 		})

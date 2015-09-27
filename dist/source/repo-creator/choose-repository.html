@@ -1,64 +1,131 @@
 <template>
-	<h2>Choose Template Repository</h2>
-	<h4>Favorites</h4>
-	<button if.bind="!loggedIn" type="button" class="btn btn-default" click.delegate="fetchFavorites()">Login to view favorites!</button>
-	<div if.bind="loggedIn" repeat.for="template of favoriteTemplates">
-		<button type="button" class="btn btn-default" click.delegate="$parent.sponsor(template)" disabled.bind="template.sponsored"><i class="fa fa-usd outlined" css.bind="template.sponsoredStyle"></i></button>
-		<button type="button" class="btn btn-default" click.delegate="$parent.toggleFavorite(template)"><i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i></button>
-		<button type="button" class="btn btn-default" click.delegate="$parent.repoSelected(template)">${template.owner}: ${template.name}</button>
-	</div>
-
-	<hr>
-
-	<h4>Sponsored</h4>
-	<div repeat.for="template of sponsoredTemplates">
-		<button type="button" class="btn btn-default" click.delegate="$parent.sponsor(template)" disabled.bind="template.sponsored"><i class="fa fa-usd outlined" css.bind="template.sponsoredStyle"></i></button>
-		<button type="button" class="btn btn-default" click.delegate="$parent.toggleFavorite(template)"><i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i></button>
-		<button type="button" class="btn btn-default" click.delegate="$parent.repoSelected(template)">${template.owner}: ${template.name}</button>
-	</div>
-
-	<hr>
-
-	<h4>Popular</h4>
-	<div repeat.for="template of popularTemplates">
-		<button type="button" class="btn btn-default" click.delegate="$parent.sponsor(template)" disabled.bind="template.sponsored"><i class="fa fa-usd outlined" css.bind="template.sponsoredStyle"></i></button>
-		<button type="button" class="btn btn-default" click.delegate="$parent.toggleFavorite(template)"><i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i></button>
-		<button type="button" class="btn btn-default" click.delegate="$parent.repoSelected(template)">${template.owner}: ${template.name}</button>
-	</div>
-
-	<hr>
-
-	<h4>Search</h4>
 	<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="col-md-12">
-				<div class="dropdown">
-					<form>
-						<div class="form-group">
-							<label for="user">User/Organization</label>
-							<input class="form-control" type="text" id="user" placeholder="The name of GitHub user or organization." value.two-way="inputOwner">
-						</div>
-						<div class="form-group">
-							<label for="repo">Repository Name</label>
-							<input class="form-control" type="text" id="repo" placeholder="The name of a GitHub repository." value.two-way="inputRepo">
-						</div>
-						<div class="form-group">
-							<button click.trigger="search()" type="submit" class="btn btn-primary" disabled.bind="inputValidated"><span class="glyphicon glyphicon-search" aria-hidden="true" disabled.bind="inputValidated"></span></button>
-						</div>
-					</form>
-				</div>
+		<div class="row">
+			<div class="col-sm-offset-1 col-sm-10 declaration-box">
+				<div class="circle-node">1</div><div class="declaration">CHOOSE A TEMPLATE FOR YOUR NEW REPOSITORY</div>
 			</div>
-		</div>
-		<div class="row-fluid">
-			<div class="col-md-12">
-				<label hidden.bind="resultTemplates.length == 0">Choose a repository to use as a template</label>
-			</div>
-			<div class="col-md-12">
-				<div class="btn-group-vertical" rale="group">
-					<div  repeat.for="template of resultTemplates">
-						<button type="button" class="btn btn-default" click.delegate="$parent.sponsor(template)" disabled.bind="template.sponsored"><i class="fa fa-usd outlined" css.bind="template.sponsoredStyle"></i></button>
-						<button type="button" class="btn btn-default" click.delegate="$parent.toggleFavorite(template)"><i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i></button>
-						<button type="button" class="btn btn-default" click.delegate="$parent.repoSelected(template)">${template.owner}: ${template.name}</button>
+			<div class="col-xs-12 panel-group" id="accordion">
+				<div class="panel panel-default">
+					
+					<!------------- This section is for SPONSORED -------------->
+					<div class="panel-heading panel-top">
+						<h4 class="panel-title">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" click.delegate="showSponsored()">
+							SPONSORED <i class="indicator glyphicon pull-right" class.bind="isSponsoredSelected ? 'glyphicon-chevron-down' : 'glyphicon-chevron-up'"></i>
+							</a>
+						</h4>
+					</div>
+					<div class="panel-collapse collapse" class.bind="isSponsoredSelected ? 'in' : ''">
+						<div class="panel-body">
+							<div class="data-row" repeat.for="template of sponsoredTemplates">
+								<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" style="padding-right:12px;"/>
+									${template.owner}: ${template.name}
+									<div class="data-inner-link">
+										<a href="" style="margin-right:16px;" click.delegate="$parent.toggleFavorite(template)">
+											<i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i>
+										</a>
+										<a href="" click.delegate="$parent.sponsor(template)" disabled.bind="template.sponsored">
+											<i class="fa fa-usd outlined" css.bind="template.sponsoredStyle"></i>
+										</a>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					
+					<!------------- This section is for FAVORITES -------------->
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" click.delegate="showFavorites()">
+							FAVORITES <i class="indicator glyphicon pull-right" class.bind="isFavoritesSelected ? 'glyphicon-chevron-down' : 'glyphicon-chevron-up'"></i>
+							</a>
+						</h4>
+					</div>
+					<div class="panel-collapse collapse" class.bind="isFavoritesSelected ? 'in' : ''">
+						<div class="panel-body" if.bind="loggedIn">
+							<div class="data-row" repeat.for="template of favoriteTemplates">
+								<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" style="padding-right:12px;"/>
+									${template.owner}: ${template.name}
+									<div class="data-inner-link">
+										<a href="" style="margin-right:16px;" click.delegate="$parent.toggleFavorite(template)">
+											<i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i>
+											</a>
+										<a href="" click.delegate="$parent.sponsor(template)" disabled.bind="template.sponsored">
+											<i class="fa fa-usd outlined" css.bind="template.sponsoredStyle"></i>
+										</a>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="panel-body inside-favorites" if.bind="!loggedIn">
+							<div class="fav-label">Log in with GitHub to see your favorites.</div>
+							<div><img src="resources/icons/GitHub.svg"></img></div>
+							<button class="fav-button" type="submit" click.delegate="fetchFavorites()">LOG IN</button>
+						</div>
+					</div>
+					
+					<!------------- This section is for POPULAR -------------->
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" click.delegate="showPopular()">
+							POPULAR <i class="indicator glyphicon pull-right" class.bind="isPopularSelected ? 'glyphicon-chevron-down' : 'glyphicon-chevron-up'"></i>
+							</a>
+						</h4>
+					</div>
+					<div class="panel-collapse collapse" class.bind="isPopularSelected ? 'in' : ''">
+						<div class="panel-body">
+							<div class="panel-body">
+								<div class="data-row" repeat.for="template of popularTemplates">
+									<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" style="padding-right:12px;"/>
+										${template.owner}: ${template.name}
+										<div class="data-inner-link">
+											<a href="" style="margin-right:16px;" click.delegate="$parent.toggleFavorite(template)">
+												<i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i>
+											</a>
+											<a href="" click.delegate="$parent.sponsor(template)" disabled.bind="template.sponsored">
+												<i class="fa fa-usd outlined" css.bind="template.sponsoredStyle"></i>
+											</a>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!------------- This section is for SEARCH -------------->
+					<div class="panel-heading panel-bottom">
+						<h4 class="panel-title">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" click.delegate="showSearch()"">
+							SEARCH <i class="indicator glyphicon pull-right" class.bind="isSearchSelected ? 'glyphicon-chevron-down' : 'glyphicon-chevron-up'"></i>
+							</a>
+						</h4>
+					</div>
+					<div class="panel-collapse collapse" class.bind="isSearchSelected ? 'in' : ''">
+						<div class="panel-body">
+							<div class="search-area">
+								<div class="input-group" style="margin-top:22px;">
+									<input type="text" class="form-control search-box" placeholder="GitHub Search Terms." value.two-way="searchInput"/>
+									<span class="input-group-addon search-button">
+										<a href="" type="submit" click.trigger="search()" disabled.bind="inputValidated"><img src="resources/icons/Search.svg" height="36" disabled.bind="inputValidated"/></a>
+									</span>
+								</div>
+							</div>
+							<div>
+								<div class="data-row" repeat.for="template of resultTemplates">
+									<a href="" class="data-link" click.delegate="$parent.repoSelected(template)">
+										<img src="resources/icons/Repo.svg" style="padding-right:12px;"/>${template.owner}: ${template.name}
+										<div class="data-inner-link">
+											<a href="" style="margin-right:16px;" click.delegate="$parent.toggleFavorite(template)">
+												<i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i>
+											</a>
+											<a href="" click.delegate="$parent.sponsor(template)" disabled.bind="template.sponsored">
+												<i class="fa fa-usd outlined" css.bind="template.sponsoredStyle"></i>
+											</a>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

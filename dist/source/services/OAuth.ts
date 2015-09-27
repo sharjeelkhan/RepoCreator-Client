@@ -72,7 +72,7 @@ export class OAuth {
 		return this._userPromise;
 	}
 
-	get isLoggedIn(): boolean {
+	get isLoggedOrLoggingIn(): boolean {
 		return !!this._userPromise;
 	}
 

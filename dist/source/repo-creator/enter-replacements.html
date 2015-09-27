@@ -3,30 +3,27 @@
 
 	<progress-modal title="Creating Repository..." id="create-modal" progress-modal.ref="progressModal"></progress-modal>
 
-	<h2>Populate Replacement Strings</h2>
-	<h2><small>Template Repository: <a href.bind="gitHubLink" target="_blank">${repoOwner}/${repoName}</a></small></h2>
-	<template if.bind="!replacements">
-		${status} <i class="fa fa-spinner fa-spin"></i>
-	</template>
-	<template if.bind="replacements">
-		<div class="list-group">
-			<input
-				repeat.for="replacement of replacements"
-				type="text"
-				class="form-control"
-				placeholder.bind="replacement.friendlyName"
-				value.bind="replacement.value"
-				change.delegate="$parent.onChanged()">
+	<div class="container-fluid">
+		<div style="text-align:center;">
+			<div class="declaration-box">
+				<div class="circle-node">3</div><div class="declaration">PROVIDE REPLACEMENTS</div>
+				<h2><small>Template Repository: <a href.bind="gitHubLink" target="_blank">${templateOwner}/${templateName}</a></small></h2>
+			</div>
 		</div>
-	</template>
-	<div>
-		<div class="input-group">
-			<input type="text" class="form-control" placeholder="New Repository Name" value.bind="newRepoName" change.delegate="onChanged()">
-			<span class="input-group-btn">
-				<button class="btn btn-default" type="button" disabled.bind="!canCreate" click.delegate="createRepo()">
-					Create Repository From Template
-				</button>
-			</span>
+		<div style="text-align:center;" if.bind="!replacements">
+			<i class="fa fa-spinner fa-spin" style="font-size:15em"></i>
 		</div>
+		<form name="stringForm" class="row" if.bind="replacements">
+			<!------------------- this is for string input ------------------>
+			<div class="col-xs-12 col-sm-6 col-lg-4" repeat.for="replacement of replacements">
+				<input  class="string-input" type="text" value.bind="replacement.value" placeholder.bind="replacement.friendlyName" change.delegate="$parent.onChanged()"/>
+			</div>
+			<!----------- this section is for bottom submit button ---------->
+			<div class="col-xs-12">
+				<div style="float:right;">
+					<button class="btn btn-submit"type="submit" click.delegate="createRepo()" disabled.bind="!canCreate">SUBMIT</button>
+				</div>
+			</div>
+		</form>
 	</div>
 </template>

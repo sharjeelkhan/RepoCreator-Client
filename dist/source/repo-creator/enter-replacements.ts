@@ -6,6 +6,7 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import { RepoCreator } from 'source/services/RepoCreator';
 import { ProgressModal } from 'source/components/progress-modal';
 import underscore from 'underscore';
+import './enter-replacements.css!';
 import 'bootstrap/css/bootstrap.css!';
 import 'bootstrap-sweetalert/lib/sweet-alert.css!';
 import 'bootstrap';
@@ -14,11 +15,11 @@ import sweetAlert from 'bootstrap-sweetalert';
 @inject(Router, EventAggregator, RepoCreator)
 export class EnterReplacements {
 	activated: boolean = false;
-	repoOwner: string = null;
-	repoName: string = null;
+	templateOwner: string = null;
+	templateName: string = null;
 	seed: string[] = null;
 	canCreate: boolean = false;
-	newRepoName: string = null;
+	destinationName: string = null;
 	replacements: Replacement[] = null;
 	progressModal: ProgressModal = null;
 
@@ -33,8 +34,9 @@ export class EnterReplacements {
 		if (this.activated)
 			return;
 
-		this.repoOwner = parameters.owner;
-		this.repoName = parameters.name;
+		this.templateOwner = parameters.templateOwner;
+		this.templateName = parameters.templateName;
+		this.destinationName = parameters.destinationName;
 		this.replacements = this.tryGetReplacementsFromQueryStringKeys(parameters.keys);
 		if (!this.replacements)
 			this.findKeys();
@@ -43,7 +45,7 @@ export class EnterReplacements {
 	}
 
 	protected get gitHubLink() {
-		return `https://github.com/${this.repoOwner}/${this.repoName}/`;
+		return `https://github.com/${this.templateOwner}/${this.templateName}/`;
 	}
 
 	protected onChanged = () => {
@@ -59,7 +61,7 @@ export class EnterReplacements {
 			map[replacement.name] = replacement.value;
 			return map;
 		}, {});
-		let promise = this.repoCreator.createRepo(this.repoOwner, this.repoName, this.newRepoName, replacementsMap);
+		let promise = this.repoCreator.createRepo(this.templateOwner, this.templateName, this.destinationName, replacementsMap);
 		promise.then((result: string) => {
 			sweetAlert.sweetAlert({
 				title: `Repo created!`,
@@ -86,7 +88,7 @@ export class EnterReplacements {
 		this.canCreate = (() => {
 			if (!this.replacements)
 				return false;
-			if (!this.newRepoName)
+			if (!this.destinationName)
 				return false;
 			for (var i = 0; i < this.replacements.length; ++i)
 				if (!this.replacements[i].value)
@@ -101,11 +103,11 @@ export class EnterReplacements {
 		let keysJson = JSON.stringify(keys);
 		let keysSerialized = compressToEncodedURIComponent(keysJson);
 		let queryString = `keys=${keysSerialized}`;
-		this.router.navigate(`replacements/${this.repoOwner}/${this.repoName}?${queryString}`, { trigger: false });
+		this.router.navigate(`replacements/${this.templateOwner}/${this.templateName}/${this.destinationName}?${queryString}`, { trigger: false });
 	}
 
 	private findKeys() {
-		this.repoCreator.findKeys(this.repoOwner, this.repoName).then((results: string[]) => {
+		this.repoCreator.findKeys(this.templateOwner, this.templateName).then((results: string[]) => {
 			this.replacements = this.keysToReplacements(results);
 			this.onChanged();
 		}).catch((error: Error) => {

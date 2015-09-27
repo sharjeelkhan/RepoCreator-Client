@@ -6,6 +6,7 @@ import { StripeCheckout, StripeToken } from 'source/services/StripeCheckout';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { autoinject } from 'aurelia-dependency-injection';
+import { computedFrom } from 'aurelia-binding';
 import underscore from 'underscore';
 import './choose-repository.css!';
 
@@ -40,6 +41,13 @@ class Repository {
 	}
 }
 
+enum Sections {
+	SPONSORED,
+	FAVORITES,
+	POPULAR,
+	SEARCH,
+}
+
 @autoinject
 export class ChooseRepository {
 	private allTemplates: Repository[] = [];
@@ -47,9 +55,10 @@ export class ChooseRepository {
 	private sponsoredTemplates: Repository[] = [];
 	private popularTemplates: Repository[] = [];
 	private resultTemplates: Repository[] = [];
+	
+	protected selectedSection: Sections = Sections.SPONSORED;
 
-	protected inputOwner: string;
-	protected inputRepo: string;
+	protected searchInput: string;
 
 	constructor(
 		private oAuth: OAuth,
@@ -63,17 +72,58 @@ export class ChooseRepository {
 	activate() {
 		this.fetchSponsored();
 		this.fetchPopular();
-		if (this.oAuth.isLoggedIn)
+		if (this.oAuth.isLoggedOrLoggingIn)
 			this.fetchFavorites();
 	}
 
 	get loggedIn(): boolean {
-		return this.oAuth.isLoggedIn;
+		return this.oAuth.isLoggedOrLoggingIn;
+	}
+	
+	@computedFrom('searchInput')
+	protected get inputValidated(): boolean {
+		return !!this.searchInput;
+	}
+	
+	@computedFrom('selectedSection')
+	protected get isSponsoredSelected() : boolean {
+		return this.selectedSection == Sections.SPONSORED;
+	}
+	
+	@computedFrom('selectedSection')
+	protected get isFavoritesSelected(): boolean {
+		return this.selectedSection == Sections.FAVORITES;
 	}
 
+	@computedFrom('selectedSection')
+	protected get isPopularSelected() : boolean {
+		return this.selectedSection == Sections.POPULAR;
+	}
+	
+	@computedFrom('selectedSection')
+	protected get isSearchSelected(): boolean {
+		return this.selectedSection == Sections.SEARCH;
+	}
+
+	protected showSponsored = () => {
+		this.selectedSection = Sections.SPONSORED;
+	}
+	
+	protected showFavorites = () => {
+		this.selectedSection = Sections.FAVORITES;
+	}
+	
+	protected showPopular = () => {
+		this.selectedSection = Sections.POPULAR;
+	}
+	
+	protected showSearch = () => {
+		this.selectedSection = Sections.SEARCH;
+	}
+	
 	protected search = () => {
 		this.clearSearchResults();
-		this.gitHub.search(this.inputOwner, this.inputRepo).then(searchResults => {
+		this.gitHub.search(this.searchInput).then(searchResults => {
 			let resultTemplates = underscore(searchResults).map(searchResult => new Repository(searchResult.owner.login, searchResult.name, false, false, false, true));
 			this.mergeTemplates(resultTemplates);
 		}).catch((error: Error) => {
@@ -82,7 +132,7 @@ export class ChooseRepository {
 	}
 
 	protected repoSelected = (repo: Repository) => {
-		this.router.navigate(`replacements/${repo.owner}/${repo.name}`);
+		this.router.navigate(`name/${repo.owner}/${repo.name}`);
 	}
 
 	protected toggleFavorite = (repo: Repository): void => {
