@@ -6,9 +6,6 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import { RepoCreator } from 'source/services/RepoCreator';
 import { ProgressModal } from 'source/components/progress-modal';
 import underscore from 'underscore';
-import './enter-replacements.css!';
-import 'bootstrap/css/bootstrap.css!';
-import 'bootstrap-sweetalert/lib/sweet-alert.css!';
 import 'bootstrap';
 import sweetAlert from 'bootstrap-sweetalert';
 

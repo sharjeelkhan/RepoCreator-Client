@@ -1,7 +1,6 @@
 import { customElement, useView, bindable } from 'aurelia-templating';
 import jquery from 'jquery';
 import 'bootstrap';
-import 'bootstrap/css/bootstrap.css!';
 
 @customElement('progress-modal')
 @useView('./progress-modal.html')
@@ -10,6 +9,10 @@ export class ProgressModal {
 	public title: string;
 	@bindable
 	public id: string;
+	
+	protected get modalId(): string {
+		return `modal-${this.id}`;
+	}
 
 	protected bind(bindingContext: any) {
 		if (!this.title)
@@ -22,11 +25,11 @@ export class ProgressModal {
 		if (!promise)
 			throw new Error('A promise is required to show the progress modal.');
 
-		jquery(`#${this.id}`).modal('show');
+		jquery(`#${this.modalId}`).modal('show');
 		promise.then(_ => this.hide(), _ => this.hide());
 	}
 
 	public hide() {
-		jquery(`#${this.id}`).modal('hide');
+		jquery(`#${this.modalId}`).modal('hide');
 	}
 }

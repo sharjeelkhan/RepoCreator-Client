@@ -1,7 +1,6 @@
 import { inject } from 'aurelia-dependency-injection';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { Router, RouterConfiguration } from 'aurelia-router';
-import './app.css!';
 
 @inject(EventAggregator)
 export class App {

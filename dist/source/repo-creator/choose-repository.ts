@@ -8,7 +8,6 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import { autoinject } from 'aurelia-dependency-injection';
 import { computedFrom } from 'aurelia-binding';
 import underscore from 'underscore';
-import './choose-repository.css!';
 
 class Repository {
 	constructor(

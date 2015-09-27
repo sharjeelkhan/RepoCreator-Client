@@ -59,3 +59,14 @@ a:hover,a:link,a:visited{
 	color:white;
 	border-radius:6px;
 }
+.sweet-alert .icon.success .placeholder {
+	color:#40c5e5;
+	border-color:#40c5e5;
+}
+.sweet-alert .icon.success .line {
+	background-color:#40c5e5;
+}
+.sweet-alert .btn-success {
+	background-color:#40c5e5;
+	border-color:#40c5e5;
+}

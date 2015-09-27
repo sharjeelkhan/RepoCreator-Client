@@ -1,4 +1,6 @@
 <template>
+	<require from="./enter-replacements.css" as="scoped"></require>
+	<require from="bootstrap-sweetalert/lib/sweet-alert.css" as="scoped"></require>
 	<require from="progress-modal"></require>
 
 	<progress-modal title="Creating Repository..." id="create-modal" progress-modal.ref="progressModal"></progress-modal>
@@ -11,7 +13,7 @@
 			</div>
 		</div>
 		<div style="text-align:center;" if.bind="!replacements">
-			<i class="fa fa-spinner fa-spin" style="font-size:15em"></i>
+			<i class="fa fa-spinner fa-spin" style="font-size:15em;color:#40c5e5;"></i>
 		</div>
 		<form name="stringForm" class="row" if.bind="replacements">
 			<!------------------- this is for string input ------------------>

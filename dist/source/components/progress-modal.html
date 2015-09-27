@@ -1,13 +1,15 @@
 <template>
-	<div class="modal fade" id="${id}" data-backdrop="static" data-keyboard="false" role="dialog">
+	<div class="modal fade" id="${modalId}" data-backdrop="static" data-keyboard="false" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1>${title}</h1>
+					<div style="text-align:center;">
+						<div class="circle-node">...</div><div class="declaration"><h1>${title}</h1></div>
+					</div>
 				</div>
 				<div class="modal-body">
-					<div class="progress">
-						<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="100" aria-valuemax="100" style="width: 100%;"></div>
+					<div style="text-align:center;">
+						<i class="fa fa-spinner fa-spin" style="font-size:15em;color:#40c5e5;"></i>
 					</div>
 				</div>
 			</div>

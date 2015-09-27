@@ -2,7 +2,6 @@ import { autoinject } from 'aurelia-dependency-injection';
 import { computedFrom } from 'aurelia-binding';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import './choose-name.css!';
 
 @autoinject()
 export class ChooseName {

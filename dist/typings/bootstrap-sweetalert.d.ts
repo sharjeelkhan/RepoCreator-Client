@@ -190,6 +190,6 @@ declare module "bootstrap-sweetalert" {
         showInputError(errorMessage: string): void;
     }
 
-    var sweetAlert: SweetAlertStatic;
+    var sweetAlert: { sweetAlert: SweetAlertStatic };
     export default sweetAlert;
 }
