@@ -12,6 +12,9 @@ a:hover,a:link,a:visited{
 	font-size:19px;
 	text-align:center;
 }
+.complete-modal .declaration-tag {
+	margin-top:5px;
+}
 .circle-node{
 	text-align:center;
 	line-height:40px;

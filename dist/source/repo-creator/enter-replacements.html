@@ -1,19 +1,20 @@
 <template>
 	<require from="./enter-replacements.css" as="scoped"></require>
-	<require from="bootstrap-sweetalert/lib/sweet-alert.css" as="scoped"></require>
 	<require from="progress-modal"></require>
+	<require from="complete-modal"></require>
 
 	<progress-modal title="Creating Repository..." id="create-modal" progress-modal.ref="progressModal"></progress-modal>
+	<complete-modal complete-modal.ref="completeModal"></complete-modal>
 
 	<div class="container-fluid">
 		<div style="text-align:center;">
 			<div class="declaration-box">
-				<div class="circle-node">3</div><div class="declaration">PROVIDE REPLACEMENTS</div>
+				<div class="circle-node">3</div><div class="declaration">ENTER REPLACEMENTS</div>
 				<h2><small>Template Repository: <a href.bind="gitHubLink" target="_blank">${templateOwner}/${templateName}</a></small></h2>
 			</div>
 		</div>
 		<div style="text-align:center;" if.bind="!replacements">
-			<i class="fa fa-spinner fa-spin" style="font-size:15em;color:#40c5e5;"></i>
+			<i class="fa fa-spinner fa-spin" style="font-size:15em;color:#40c5e5;"></i><br/><br/>Finding Replacements...
 		</div>
 		<form name="stringForm" class="row" if.bind="replacements">
 			<!------------------- this is for string input ------------------>

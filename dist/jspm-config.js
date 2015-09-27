@@ -39,7 +39,7 @@ System.config({
     "auth0-lock": "github:auth0/lock@7.5.7",
     "auth0/lock": "github:auth0/lock@7.5.7",
     "bootstrap": "github:twbs/bootstrap@3.3.5",
-    "bootstrap-sweetalert": "bower:bootstrap-sweetalert@0.4.5",
+    "complete-modal": "local-component/complete-modal",
     "css": "github:systemjs/plugin-css@0.1.13",
     "font-awesome": "npm:font-awesome@4.3.0",
     "jquery": "github:components/jquery@2.1.4",
@@ -51,9 +51,6 @@ System.config({
     "stripe-checkout": "https://proxy.zoltu.io/stripe/checkout.js",
     "typescript": "npm:typescript@1.6.2",
     "underscore": "npm:underscore@1.8.3",
-    "bower:bootstrap-sweetalert@0.4.5": {
-      "css": "github:systemjs/plugin-css@0.1.13"
-    },
     "github:aurelia/binding@0.9.1": {
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.10.1",
       "aurelia-metadata": "github:aurelia/metadata@0.8.0",

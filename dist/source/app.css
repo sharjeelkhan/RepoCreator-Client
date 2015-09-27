@@ -7,3 +7,7 @@
 	overflow-x: hidden;
 	overflow-y: auto;
 }
+.page-host router-view section {
+	margin-left: 10px;
+	margin-right: 10px;
+}

@@ -5,9 +5,9 @@ import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { RepoCreator } from 'source/services/RepoCreator';
 import { ProgressModal } from 'source/components/progress-modal';
+import { CompleteModal } from 'source/components/complete-modal';
 import underscore from 'underscore';
 import 'bootstrap';
-import sweetAlert from 'bootstrap-sweetalert';
 
 @inject(Router, EventAggregator, RepoCreator)
 export class EnterReplacements {
@@ -19,6 +19,7 @@ export class EnterReplacements {
 	destinationName: string = null;
 	replacements: Replacement[] = null;
 	progressModal: ProgressModal = null;
+	completeModal: CompleteModal = null;
 
 	constructor(
 		private router: Router,
@@ -60,23 +61,9 @@ export class EnterReplacements {
 		}, {});
 		let promise = this.repoCreator.createRepo(this.templateOwner, this.templateName, this.destinationName, replacementsMap);
 		promise.then((result: string) => {
-			sweetAlert.sweetAlert({
-				title: `Repo created!`,
-				text: `A new repository has been created at ${result}`,
-				type: "success",
-				confirmButtonClass: "btn-success",
-				confirmButtonText: "Create another!",
-				showCancelButton: true,
-				cancelButtonClass: "btn-primary",
-				cancelButtonText: "Take me there!"
-			}, (isConfirm: boolean) => {
-				if (isConfirm)
-					this.router.navigate("choose");
-				else
-					window.location.href = `${result}`;
-			});
+			return this.completeModal.show(result)
 		}).catch((error: Error) => {
-			this.eventAggregator.publish(error);
+			this.eventAggregator.publish(error)
 		});
 		this.progressModal.show(promise);
 	}

@@ -1,5 +1,6 @@
 import { bindable } from 'aurelia-templating';
 import { Router } from 'aurelia-router';
+import 'bootstrap';
 
 export class NavBar {
 	@bindable router: Router = null;

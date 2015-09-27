@@ -22,7 +22,6 @@
       "aurelia-templating": "github:aurelia/templating@^0.15.3",
       "auth0/lock": "github:auth0/lock@^7.5.7",
       "bootstrap": "github:twbs/bootstrap@^3.3.5",
-      "bootstrap-sweetalert": "bower:bootstrap-sweetalert@^0.4.5",
       "css": "github:systemjs/plugin-css@^0.1.13",
       "font-awesome": "npm:font-awesome@^4.3.0",
       "jquery": "github:components/jquery@^2.1.4",
