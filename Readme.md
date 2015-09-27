@@ -1,6 +1,7 @@
 ### Build
 ```
 npm install
+node_modules/.bin/jspm install
 ```
 
 ### Run
