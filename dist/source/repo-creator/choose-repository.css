@@ -1,25 +1,21 @@
-.outlined {
+.choose-repository .outlined {
 	text-shadow:
     -1px -1px 0 #000,
      1px -1px 0 #000,
     -1px  1px 0 #000,
      1px  1px 0 #000;
 }
-*{
-	margin:0px;
-	padding:0px;
-}
-a:hover,a:link,a:visited{
+.choose-repository a:hover,a:link,a:visited{
 	text-decoration: none;
 	outline:none;
 }
-.declaration-box{
+.choose-repository .declaration-box{
 	padding-top:30px;
 	padding-bottom:30px;
 	font-size:19px;
 	text-align:center;
 }
-.circle-node{
+.choose-repository .circle-node{
 	text-align:center;
 	line-height:40px;
 	background: #40c5e5;
@@ -32,86 +28,78 @@ a:hover,a:link,a:visited{
 	display:inline-block;
 	margin: 0px 15px 10px;
 }
-.declaration{
+.choose-repository .declaration{
 	font-weight:600;
 	color:#4a4a4a;
 	display: inline-block;
 	margin: 0px 15px;
 }
 /**** total panel SPONSORED,FAVORITES,POPULAR,SEARCH   ****/
-.panel-group > .panel{
+.choose-repository .panel-group > .panel{
 	border-radius:11px;
 	border:1px solid #a0e1f0;
 }
+.choose-repository .panel-default > .panel-heading + .panel-collapse > .panel-body {
+	border-top-style:none;
+}
 /**** single panel SPONSORED,FAVORITES,POPULAR,SEARCH   ****/
-.panel-default > .panel-heading{
+.choose-repository .panel-default > .panel-heading{
 	background: #a0e1f0;
 	color: #444444;
 	border-radius:0px;
 	border: 1px solid #46c7e6;
 	height:40px;
 	padding:0px;
-	
 }
-.panel-default > .panel-top{
+.choose-repository .panel-default > .panel-top{
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
-.panel-default > .panel-bottom{
+.choose-repository .panel-default > .panel-bottom{
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
-.accordion-toggle{
+.choose-repository .accordion-toggle{
 	padding-top:11px;
 	padding-bottom:11px;
 	padding-left:20px;
 	padding-right:20px;
 	display:block;
 }
-.indicator{
+.choose-repository .indicator{
 	color:#608e99;
 }
 /**** all inner panel ****/
-.panel-collapse > .panel-body{
+.choose-repository .panel-collapse > .panel-body{
 	overflow:auto;
 	padding:0px;
-	
+	margin:5px;
 }
 /*** inside of SPONSORED ****/
-.data-row{
+.choose-repository .data-row{
 	margin-left:20px;
 	margin-right:20px;
 	line-height:44px;
 	border-bottom:1px solid #e1e1e1;
 }
-.data-link{
+.choose-repository .data-link{
 	color:black;
 	display:block;
 }
-.data-link:hover{color:#6ccfe9;}
-.data-inner-link{
+.choose-repository .data-link:hover{
+	color:#6ccfe9;
+}
+.choose-repository .data-inner-link{
 	float:right;
 	position:relative;
 	top:-44px;
 	right:0px;
 }
 /*** inside of FAVORITES ****/
-.inside-favorites{
+.choose-repository .inside-favorites{
 	text-align:center;
 }
-.fav-label{
-	margin-top:40px;
-	font-size:13px;
-	margin-bottom:13px
-}
-.fav-input{
-	width:281px;
-	height:38px;
-	border:2px solid #dddddd;
-	border-radius:6px;
-	padding-left:6px;
-}
-.fav-button{
+.choose-repository .fav-button{
 	width:281px;
 	height:38px;
 	border:3px solid #40c5e5;
@@ -120,20 +108,20 @@ a:hover,a:link,a:visited{
 	border-radius:6px;
 }
 /*** inside of POPULAR ****/
-.inside-popular{
+.choose-repository .inside-popular{
 	margin:15px;
 	display:none;
 }
-.loading{
+.choose-repository .loading{
 	text-align:center; 
 	margin-top:78px;
 	margin-bottom:78px;
 }
 /*** inside of SEARCH ****/
-.inside-search{
+.choose-repository .inside-search{
 	text-align:center;
 }
-.search-box{
+.choose-repository .search-box{
 	height:40px;
 	padding-left:6px;
 	border-bottom-left-radius:10px;
@@ -141,31 +129,15 @@ a:hover,a:link,a:visited{
 	border:2px solid #e2e2e2;
 	border-right:none;
 }
-.search-button{
+.choose-repository .search-button{
 	padding:0px;
 	height:36px;
 	border-bottom-right-radius:10px;
 	border-top-right-radius:10px;
 	border:2px solid #e2e2e2;
 }
-.search-nav{
-	width:100%;
-	margin-top:37px;
-	padding-bottom:5px;
-	text-align:center;
-	border-bottom:2px solid #c3ecf5;
-}
-.search-nav > a{
-	color:#40c5e5;
-	cursor:pointer;
-}
-.manu-contents{
-	display:none;
-	height:172px;
-	text-align:left;
-}
 /*** bottom submit button ****/
-.btn-submit{
+.choose-repository .btn-submit{
 	width:123px;
 	height:40px;
 	background:#40c5e5;

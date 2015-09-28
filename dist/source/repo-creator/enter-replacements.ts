@@ -15,7 +15,6 @@ export class EnterReplacements {
 	templateOwner: string = null;
 	templateName: string = null;
 	seed: string[] = null;
-	canCreate: boolean = false;
 	destinationName: string = null;
 	replacements: Replacement[] = null;
 	progressModal: ProgressModal = null;
@@ -42,6 +41,16 @@ export class EnterReplacements {
 		this.activated = true;
 	}
 
+	protected get canCreate(): boolean {
+		if (!this.replacements)
+			return false;
+		for (var i = 0; i < this.replacements.length; ++i)
+			if (!this.replacements[i].value)
+				return false;
+
+		return true;
+	}
+
 	protected get gitHubLink() {
 		return `https://github.com/${this.templateOwner}/${this.templateName}/`;
 	}
@@ -49,7 +58,6 @@ export class EnterReplacements {
 	protected onChanged = () => {
 		// setImmediate to avoid a jquery/Aurelia bug resulting in a console error message
 		setImmediate(() => {
-			this.setCanCreate();
 			this.updateQueryString();
 		});
 	}
@@ -66,20 +74,6 @@ export class EnterReplacements {
 			this.eventAggregator.publish(error)
 		});
 		this.progressModal.show(promise);
-	}
-
-	private setCanCreate() {
-		this.canCreate = (() => {
-			if (!this.replacements)
-				return false;
-			if (!this.destinationName)
-				return false;
-			for (var i = 0; i < this.replacements.length; ++i)
-				if (!this.replacements[i].value)
-					return false;
-
-			return true;
-		})();
 	}
 
 	private updateQueryString(): void {

@@ -1,7 +1,7 @@
 <template>
 	<require from="./choose-repository.css" as="scoped"></require>
 
-	<div class="container-fluid">
+	<div class="container-fluid choose-repository">
 		<div class="row">
 			<div class="col-sm-offset-1 col-sm-10 declaration-box">
 				<div class="circle-node">1</div><div class="declaration">CHOOSE A TEMPLATE FOR YOUR NEW REPOSITORY</div>
@@ -61,7 +61,7 @@
 							</div>
 						</div>
 						<div class="panel-body inside-favorites" if.bind="!loggedIn">
-							<div class="fav-label">Log in with GitHub to see your favorites.</div>
+							<div class="fav-label">Login with GitHub to see your favorites.</div>
 							<div><img src="resources/icons/GitHub.svg"></img></div>
 							<button class="fav-button" type="submit" click.delegate="fetchFavorites()">LOG IN</button>
 						</div>
@@ -106,7 +106,7 @@
 					<div class="panel-collapse collapse" class.bind="isSearchSelected ? 'in' : ''">
 						<div class="panel-body">
 							<div class="search-area">
-								<div class="input-group" style="margin-top:22px;">
+								<div class="input-group"">
 									<input type="text" class="form-control search-box" placeholder="GitHub Search Terms." value.two-way="searchInput"/>
 									<span class="input-group-addon search-button">
 										<a href="" type="submit" click.trigger="search()" disabled.bind="inputValidated"><img src="resources/icons/Search.svg" height="36" disabled.bind="inputValidated"/></a>
