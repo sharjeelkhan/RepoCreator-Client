@@ -11,7 +11,9 @@ node_modules/.bin/jspm install
 npm start
 ```
 
----
+## Develop
+Once the application is running you can make changes and see them when you refresh the browser.  Be aware, the page is setup to cache locally so you may need to do a hard reload as described here: https://www.getfilecloud.com/blog/2015/03/tech-tip-how-to-do-hard-refresh-in-browsers
+
 ## Maintain
 
 ### Install or Update NPM package
