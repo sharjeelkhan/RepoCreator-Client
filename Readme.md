@@ -1,26 +1,42 @@
-### Build (only required once on checkout)
+## Build (only required once on checkout)
+### Windows
 ```
 # Get a GitHub auth token with public_repo access: https://help.github.com/articles/creating-an-access-token-for-command-line-use/
-#linux
-export JSPM_GITHUB_AUTH_TOKEN=auth-token-from-previous-step-goes-here
-#windows
 set JSPM_GITHUB_AUTH_TOKEN=auth-token-from-previous-step-goes-here
 npm install
+node_modules/.bin/jspm config registries.github.auth %JSPM_GITHUB_AUTH_TOKEN%
 node_modules/.bin/jspm config registries.bower.handler jspm-bower-endpoint
 node_modules/.bin/jspm config registries.bower.timeouts.lookup 300
 node_modules/.bin/jspm config registries.bower.timeouts.build 300
 node_modules/.bin/jspm config registries.github.timeouts.lookup 300
 node_modules/.bin/jspm config registries.github.timeouts.build 300
-node_modules/.bin/jspm config registries.github.auth %JSPM_GITHUB_AUTH_TOKEN%
+node_modules/.bin/jspm config registries.npm.timeouts.lookup 300
+node_modules/.bin/jspm config registries.npm.timeouts.build 300
+node_modules/.bin/jspm install
+```
+### Linux/MacOSX
+```
+# Get a GitHub auth token with public_repo access: https://help.github.com/articles/creating-an-access-token-for-command-line-use/
+export JSPM_GITHUB_AUTH_TOKEN=auth-token-from-previous-step-goes-here
+npm install
+node_modules/.bin/jspm config registries.github.auth $JSPM_GITHUB_AUTH_TOKEN
+node_modules/.bin/jspm config registries.bower.handler jspm-bower-endpoint
+node_modules/.bin/jspm config registries.bower.timeouts.lookup 300
+node_modules/.bin/jspm config registries.bower.timeouts.build 300
+node_modules/.bin/jspm config registries.github.timeouts.lookup 300
+node_modules/.bin/jspm config registries.github.timeouts.build 300
 node_modules/.bin/jspm config registries.npm.timeouts.lookup 300
 node_modules/.bin/jspm config registries.npm.timeouts.build 300
 node_modules/.bin/jspm install
 ```
 
-### Run
+## Run
 ```
 npm start
 ```
+
+---
+## Maintain
 
 ### Install or Update NPM package
 ```
