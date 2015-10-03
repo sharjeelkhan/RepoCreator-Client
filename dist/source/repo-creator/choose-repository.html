@@ -105,11 +105,11 @@
 					</div>
 					<div class="panel-collapse collapse" class.bind="isSearchSelected ? 'in' : ''">
 						<div class="panel-body">
-							<div class="search-area">
+							<div class="search-area" onkeypress="event.keyCode==13?document.getElementById('searchBtn').click():''">
 								<div class="input-group"">
 									<input type="text" class="form-control search-box" placeholder="GitHub Search Terms." value.two-way="searchInput"/>
 									<span class="input-group-addon search-button">
-										<a href="" type="submit" click.trigger="search()" disabled.bind="inputValidated"><img src="resources/icons/Search.svg" height="36" disabled.bind="inputValidated"/></a>
+										<a href="" id="searchBtn" type="submit" click.trigger="search()" disabled.bind="inputValidated"><img src="resources/icons/Search.svg" height="36" disabled.bind="inputValidated"/></a>
 									</span>
 								</div>
 							</div>
