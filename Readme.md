@@ -1,6 +1,9 @@
 ### Build (only required once on checkout)
 ```
 npm install
+node_modules/.bin/jspm config registries.bower.handler jspm-bower-endpoint
+node_modules/.bin/jspm config registries.bower.timeouts.lookup 300
+node_modules/.bin/jspm config registries.bower.timeouts.build 300
 node_modules/.bin/jspm install
 ```
 
