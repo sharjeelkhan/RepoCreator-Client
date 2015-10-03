@@ -1,7 +1,7 @@
 ## Build (only required once on checkout)
 ### Windows
 ```
-# Get a GitHub auth token with public_repo access: https://help.github.com/articles/creating-an-access-token-for-command-line-use/
+REM Get a GitHub auth token with public_repo access: https://help.github.com/articles/creating-an-access-token-for-command-line-use/
 set JSPM_GITHUB_AUTH_TOKEN=auth-token-from-previous-step-goes-here
 npm install
 node_modules/.bin/jspm config registries.github.auth %JSPM_GITHUB_AUTH_TOKEN%
@@ -16,7 +16,7 @@ node_modules/.bin/jspm install
 ```
 ### Linux/MacOSX
 ```
-REM Get a GitHub auth token with public_repo access: https://help.github.com/articles/creating-an-access-token-for-command-line-use/
+# Get a GitHub auth token with public_repo access: https://help.github.com/articles/creating-an-access-token-for-command-line-use/
 export JSPM_GITHUB_AUTH_TOKEN=auth-token-from-previous-step-goes-here
 npm install
 node_modules/.bin/jspm config registries.github.auth $JSPM_GITHUB_AUTH_TOKEN
