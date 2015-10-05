@@ -85,6 +85,9 @@
 .choose-repository .data-link{
 	color:black;
 	display:block;
+	text-overflow: ellipsis;
+        padding-right: 26px;
+        overflow: hidden;
 }
 .choose-repository .data-link:hover{
 	color:#6ccfe9;
@@ -145,3 +148,4 @@
 	border-radius:6px;
 	float:right;
 }
+
