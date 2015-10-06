@@ -81,6 +81,7 @@
 	margin-right:20px;
 	line-height:44px;
 	border-bottom:1px solid #e1e1e1;
+	position: relative;
 }
 .choose-repository .data-link{
 	color:black;
@@ -93,10 +94,10 @@
 	color:#6ccfe9;
 }
 .choose-repository .data-inner-link{
-	float:right;
-	position:relative;
-	top:-44px;
-	right:0px;
+	float: right;
+        top: 0px;
+        right: 0px;
+        position: absolute;
 }
 /*** inside of FAVORITES ****/
 .choose-repository .inside-favorites{
@@ -149,3 +150,6 @@
 	float:right;
 }
 
+.data-row:last-child {
+    border-bottom: none;
+}
