@@ -94,11 +94,10 @@
 	color:#6ccfe9;
 }
 .choose-repository .data-inner-link{
-	float:right;
-	position:relative;
-	top:-44px;
-	right:0px;
-	position: absolute;
+	float: right;
+        top: 0px;
+        right: 0px;
+        position: absolute;
 }
 /*** inside of FAVORITES ****/
 .choose-repository .inside-favorites{
