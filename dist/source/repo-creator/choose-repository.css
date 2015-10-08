@@ -83,6 +83,7 @@
 	border-bottom:1px solid #e1e1e1;
 	position: relative;
 	padding: 10px 0;
+	overflow-wrap: break-word;
 }
 .choose-repository .data-link{
 	color:black;
