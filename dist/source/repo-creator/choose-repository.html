@@ -21,7 +21,7 @@
 					<div class="panel-collapse collapse" class.bind="isSponsoredSelected ? 'in' : ''">
 						<div class="panel-body">
 							<div class="data-row" repeat.for="template of sponsoredTemplates">
-								<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" style="padding-right:12px;"/>
+								<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" class="data-link-img" style="padding-right:12px;"/>
 									${template.owner}: ${template.name}
 									<div class="data-inner-link">
 										<a href="" style="margin-right:7px;" click.delegate="$parent.toggleFavorite(template)">
@@ -47,7 +47,7 @@
 					<div class="panel-collapse collapse" class.bind="isFavoritesSelected ? 'in' : ''">
 						<div class="panel-body" if.bind="loggedIn">
 							<div class="data-row" repeat.for="template of favoriteTemplates">
-								<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" style="padding-right:12px;"/>
+								<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" class="data-link-img" style="padding-right:12px;"/>
 									${template.owner}: ${template.name}
 									<div class="data-inner-link">
 										<a href="" style="margin-right:7px;" click.delegate="$parent.toggleFavorite(template)">
@@ -79,7 +79,7 @@
 					
 							<div class="panel-body">
 								<div class="data-row" repeat.for="template of popularTemplates">
-									<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" style="padding-right:12px;"/>
+									<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" class="data-link-img" style="padding-right:12px;"/>
 										${template.owner}: ${template.name}
 										<div class="data-inner-link">
 											<a href="" style="margin-right:7px;" click.delegate="$parent.toggleFavorite(template)">
@@ -116,7 +116,7 @@
 							<div>
 								<div class="data-row" repeat.for="template of resultTemplates">
 									<a href="" class="data-link" click.delegate="$parent.repoSelected(template)">
-										<img src="resources/icons/Repo.svg" style="padding-right:12px;"/>${template.owner}: ${template.name}
+										<img src="resources/icons/Repo.svg" class="data-link-img" style="padding-right:12px;"/>${template.owner}: ${template.name}
 										<div class="data-inner-link">
 											<a href="" style="margin-right:16px;" click.delegate="$parent.toggleFavorite(template)">
 												<i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i>

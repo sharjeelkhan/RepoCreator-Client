@@ -79,25 +79,29 @@
 .choose-repository .data-row{
 	margin-left:20px;
 	margin-right:20px;
-	line-height:44px;
+	line-height:1.6;
 	border-bottom:1px solid #e1e1e1;
 	position: relative;
+	padding: 10px 0;
 }
 .choose-repository .data-link{
 	color:black;
 	display:block;
 	text-overflow: ellipsis;
-        padding-right: 26px;
+        padding-right: 35px;
         overflow: hidden;
+        padding-left: 20px;
 }
 .choose-repository .data-link:hover{
 	color:#6ccfe9;
 }
 .choose-repository .data-inner-link{
-	float: right;
-        top: 0px;
+	top: 50%;
         right: 0px;
         position: absolute;
+        line-height: 1;
+        margin-top: -7px;
+	text-align:right;
 }
 /*** inside of FAVORITES ****/
 .choose-repository .inside-favorites{
@@ -152,4 +156,10 @@
 
 .data-row:last-child {
     border-bottom: none;
+}
+.data-link-img {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -10px;
 }
