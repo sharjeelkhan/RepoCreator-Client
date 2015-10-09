@@ -1,6 +1,6 @@
 <template>
 	<require from="./choose-repository.css" as="scoped"></require>
-
+    
 	<div class="container-fluid choose-repository">
 		<div class="row">
 			<div class="col-sm-offset-1 col-sm-10 declaration-box">
@@ -19,12 +19,12 @@
 						</h4>
 					</div>
 					<div class="panel-collapse collapse" class.bind="isSponsoredSelected ? 'in' : ''">
-						<div class="panel-body">
+						<div class="panel-body" >
 							<div class="data-row" repeat.for="template of sponsoredTemplates">
-								<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" style="padding-right:12px;"/>
+								<a href=""  class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" style="padding-right:12px" class="data-link-img"/>
 									${template.owner}: ${template.name}
 									<div class="data-inner-link">
-										<a href="" style="margin-right:16px;" click.delegate="$parent.toggleFavorite(template)">
+										<a href="" style="margin-right:7px;" click.delegate="$parent.toggleFavorite(template)">
 											<i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i>
 										</a>
 										<a href="" click.delegate="$parent.sponsor(template)" disabled.bind="template.sponsored">
@@ -45,12 +45,12 @@
 						</h4>
 					</div>
 					<div class="panel-collapse collapse" class.bind="isFavoritesSelected ? 'in' : ''">
-						<div class="panel-body" if.bind="loggedIn">
+						<div class="panel-body" if.bind="loggedIn" >
 							<div class="data-row" repeat.for="template of favoriteTemplates">
-								<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" style="padding-right:12px;"/>
+								<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" class="data-link-img" style="padding-right:12px;"/>
 									${template.owner}: ${template.name}
 									<div class="data-inner-link">
-										<a href="" style="margin-right:16px;" click.delegate="$parent.toggleFavorite(template)">
+										<a href="" style="margin-right:7px;" click.delegate="$parent.toggleFavorite(template)">
 											<i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i>
 											</a>
 										<a href="" click.delegate="$parent.sponsor(template)" disabled.bind="template.sponsored">
@@ -60,7 +60,7 @@
 								</a>
 							</div>
 						</div>
-						<div class="panel-body inside-favorites" if.bind="!loggedIn">
+						<div class="panel-body inside-favorites" if.bind="!loggedIn" >
 							<div class="fav-label">Login with GitHub to see your favorites.</div>
 							<div><img src="resources/icons/GitHub.svg"></img></div>
 							<button class="fav-button" type="submit" click.delegate="fetchFavorites()">LOG IN</button>
@@ -76,13 +76,13 @@
 						</h4>
 					</div>
 					<div class="panel-collapse collapse" class.bind="isPopularSelected ? 'in' : ''">
-						<div class="panel-body">
-							<div class="panel-body">
+						
+							<div class="panel-body" >
 								<div class="data-row" repeat.for="template of popularTemplates">
-									<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" style="padding-right:12px;"/>
+									<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" class="data-link-img" style="padding-right:12px;"/>
 										${template.owner}: ${template.name}
 										<div class="data-inner-link">
-											<a href="" style="margin-right:16px;" click.delegate="$parent.toggleFavorite(template)">
+											<a href="" style="margin-right:7px;" click.delegate="$parent.toggleFavorite(template)">
 												<i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i>
 											</a>
 											<a href="" click.delegate="$parent.sponsor(template)" disabled.bind="template.sponsored">
@@ -92,7 +92,7 @@
 									</a>
 								</div>
 							</div>
-						</div>
+						
 					</div>
 					
 					<!------------- This section is for SEARCH -------------->
@@ -103,20 +103,25 @@
 							</a>
 						</h4>
 					</div>
-					<div class="panel-collapse collapse" class.bind="isSearchSelected ? 'in' : ''">
-						<div class="panel-body">
-							<div class="search-area">
+					<div class="panel-collapse collapse" class.bind="isSearchSelected ? 'in' : ''" >
+						<div class="panel-body" >
+
+							    <div class="search-area" onkeypress="event.keyCode==13?document.getElementById('searchBtn').click():''">
 								<div class="input-group"">
 									<input type="text" class="form-control search-box" placeholder="GitHub Search Terms." value.two-way="searchInput"/>
 									<span class="input-group-addon search-button">
-										<a href="" type="submit" click.trigger="search()" disabled.bind="inputValidated"><img src="resources/icons/Search.svg" height="36" disabled.bind="inputValidated"/></a>
+										<a href="" id="searchBtn" type="submit" click.trigger="search()" disabled.bind="inputValidated"><img src="resources/icons/Search.svg" height="36" disabled.bind="inputValidated"/></a>
 									</span>
 								</div>
 							</div>
 							<div>
+							
+							<div id="loading" if.bind="searching">
+                                 <img id="loading-image" src="resources/icons/loader10.gif" alt="Loading..." />
+                            </div>
 								<div class="data-row" repeat.for="template of resultTemplates">
 									<a href="" class="data-link" click.delegate="$parent.repoSelected(template)">
-										<img src="resources/icons/Repo.svg" style="padding-right:12px;"/>${template.owner}: ${template.name}
+										<img src="resources/icons/Repo.svg" style="padding-right:12px;" class="data-link-img"/>${template.owner}: ${template.name}
 										<div class="data-inner-link">
 											<a href="" style="margin-right:16px;" click.delegate="$parent.toggleFavorite(template)">
 												<i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i>
@@ -134,4 +139,5 @@
 			</div>
 		</div>
 	</div>
+	
 </template>
