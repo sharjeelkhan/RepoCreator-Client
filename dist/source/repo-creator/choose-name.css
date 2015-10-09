@@ -55,3 +55,24 @@
 	border-radius:6px;
 	float:right;
 }
+
+.choose-name .has-warning .repo-input{
+	border-color: #8a6d3b;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+/*** validation ****/
+p.aurelia-validation-message {
+  display: inline;
+  margin-left: 5px;
+}
+p.aurelia-validation-message:empty {
+  display: none;
+}
+.has-success label {
+  color: #3c763d;
+}
+.has-warning label {
+  color: #8a6d3b;
+}

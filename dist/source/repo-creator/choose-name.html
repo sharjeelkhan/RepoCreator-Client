@@ -1,20 +1,23 @@
 <template>
-	<require from="./choose-name.css" as="scoped"></require>
+    <require from="./choose-name.css" as="scoped"></require>
 
-	<div class="container-fluid choose-name">
-		<div class="col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10 declaration-box">
-				<div class="circle-node">2</div><div class="declaration">GIVE A NAME FOR YOUR NEW REPOSITORY</div>
-		</div>
-		<form name="repoForm">
-			<div class="col-xs-12">
-				<div><label class="repo-label">Name:</label></div>
-				<input class="repo-input" type="text" name="repoName" placeholder="my_repository" value.bind="newRepoName"/>
-			</div>
-	
-			<!----------- Submit button ---------->
-			<div class="col-xs-12">
-				<button class="btn btn-submit" type="submit" click.delegate="createRepository()" disabled.bind="!inputValid">SUBMIT</button>
-			</div>
-		</form>
-	</div>
+    <div class="container-fluid choose-name">
+        <div class="col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10 declaration-box">
+            <div class="circle-node">2</div><div class="declaration">GIVE A NAME FOR YOUR NEW REPOSITORY</div>
+        </div>
+        <form name="repoForm" validate.bind="validation" submit.delegate="createRepository()" class="${validation.result.properties.newRepoName.isDirty && !validation.result.properties.newRepoName.isValid ? 'has-warning' : ''}">
+            <div class="col-xs-12">
+                <div>
+                    <label class="repo-label">Name:</label>
+                    <p class="help-block aurelia-validation-message" show.bind="validation.result.properties.newRepoName.isDirty">${validation.result.properties.newRepoName.message}</p>
+                </div>
+                <input class="repo-input" type="text" name="repoName" placeholder="my_repository" value.bind="newRepoName" />
+            </div>
+
+            <!----------- Submit button ---------->
+            <div class="col-xs-12">
+                <button class="btn btn-submit" type="submit">SUBMIT</button>
+            </div>
+        </form>
+    </div>
 </template>
