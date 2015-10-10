@@ -1,6 +1,6 @@
 <template>
 	<require from="./choose-repository.css" as="scoped"></require>
-    
+
 	<div class="container-fluid choose-repository">
 		<div class="row">
 			<div class="col-sm-offset-1 col-sm-10 declaration-box">
@@ -19,9 +19,9 @@
 						</h4>
 					</div>
 					<div class="panel-collapse collapse" class.bind="isSponsoredSelected ? 'in' : ''">
-						<div class="panel-body" >
+						<div class="panel-body">
 							<div class="data-row" repeat.for="template of sponsoredTemplates">
-								<a href=""  class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" style="padding-right:12px" class="data-link-img"/>
+								<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" class="data-link-img" style="padding-right:12px;"/>
 									${template.owner}: ${template.name}
 									<div class="data-inner-link">
 										<a href="" style="margin-right:7px;" click.delegate="$parent.toggleFavorite(template)">
@@ -45,7 +45,7 @@
 						</h4>
 					</div>
 					<div class="panel-collapse collapse" class.bind="isFavoritesSelected ? 'in' : ''">
-						<div class="panel-body" if.bind="loggedIn" >
+						<div class="panel-body" if.bind="loggedIn">
 							<div class="data-row" repeat.for="template of favoriteTemplates">
 								<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" class="data-link-img" style="padding-right:12px;"/>
 									${template.owner}: ${template.name}
@@ -60,7 +60,7 @@
 								</a>
 							</div>
 						</div>
-						<div class="panel-body inside-favorites" if.bind="!loggedIn" >
+						<div class="panel-body inside-favorites" if.bind="!loggedIn">
 							<div class="fav-label">Login with GitHub to see your favorites.</div>
 							<div><img src="resources/icons/GitHub.svg"></img></div>
 							<button class="fav-button" type="submit" click.delegate="fetchFavorites()">LOG IN</button>
@@ -76,8 +76,7 @@
 						</h4>
 					</div>
 					<div class="panel-collapse collapse" class.bind="isPopularSelected ? 'in' : ''">
-						
-							<div class="panel-body" >
+							<div class="panel-body">
 								<div class="data-row" repeat.for="template of popularTemplates">
 									<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" class="data-link-img" style="padding-right:12px;"/>
 										${template.owner}: ${template.name}
@@ -92,21 +91,19 @@
 									</a>
 								</div>
 							</div>
-						
 					</div>
 					
 					<!------------- This section is for SEARCH -------------->
 					<div class="panel-heading panel-bottom">
 						<h4 class="panel-title">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" click.delegate="showSearch()"">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" click.delegate="showSearch()">
 							SEARCH <i class="indicator glyphicon pull-right" class.bind="isSearchSelected ? 'glyphicon-chevron-down' : 'glyphicon-chevron-up'"></i>
 							</a>
 						</h4>
 					</div>
-					<div class="panel-collapse collapse" class.bind="isSearchSelected ? 'in' : ''" >
-						<div class="panel-body" >
-
-							    <div class="search-area" onkeypress="event.keyCode==13?document.getElementById('searchBtn').click():''">
+					<div class="panel-collapse collapse" class.bind="isSearchSelected ? 'in' : ''">
+						<div class="panel-body">
+							<div class="search-area" onkeypress="event.keyCode==13?document.getElementById('searchBtn').click():''">
 								<div class="input-group"">
 									<input type="text" class="form-control search-box" placeholder="GitHub Search Terms." value.two-way="searchInput"/>
 									<span class="input-group-addon search-button">
@@ -115,13 +112,12 @@
 								</div>
 							</div>
 							<div>
-							
-							<div id="loading" if.bind="searching">
-                                 <img id="loading-image" src="resources/icons/loader10.gif" alt="Loading..." />
-                            </div>
+								<div id="loading" if.bind="searching">
+									<img id="loading-image" src="resources/icons/loader10.gif" alt="Loading..." />
+	                            </div>
 								<div class="data-row" repeat.for="template of resultTemplates">
 									<a href="" class="data-link" click.delegate="$parent.repoSelected(template)">
-										<img src="resources/icons/Repo.svg" style="padding-right:12px;" class="data-link-img"/>${template.owner}: ${template.name}
+										<img src="resources/icons/Repo.svg" class="data-link-img" style="padding-right:12px;"/>${template.owner}: ${template.name}
 										<div class="data-inner-link">
 											<a href="" style="margin-right:16px;" click.delegate="$parent.toggleFavorite(template)">
 												<i class="fa fa-star outlined" css.bind="template.favoriteStyle"></i>
@@ -139,5 +135,4 @@
 			</div>
 		</div>
 	</div>
-	
 </template>
