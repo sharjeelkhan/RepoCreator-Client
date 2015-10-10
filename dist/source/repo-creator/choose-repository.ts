@@ -121,15 +121,15 @@ export class ChooseRepository {
 	}
 	
 	protected search = () => {
-			this.gitHub.search(this.searchInput).then(searchResults => {
-			let resultTemplates = underscore(searchResults).map(searchResult => new Repository(searchResult.owner.login, searchResult.name, false, false, false, true));
-			this.mergeTemplates(resultTemplates);
-			}).catch((error: Error) => {
-			this.eventAggregator.publish(error);
-			}).then(x => {
-			this.searching = false;
-			});
-			this.searching = true;	
+		this.gitHub.search(this.searchInput).then(searchResults => {
+		let resultTemplates = underscore(searchResults).map(searchResult => new Repository(searchResult.owner.login, searchResult.name, false, false, false, true));
+		this.mergeTemplates(resultTemplates);
+		}).catch((error: Error) => {
+		this.eventAggregator.publish(error);
+		}).then(x => {
+		this.searching = false;
+		});
+		this.searching = true;	
 	}
 
 	protected repoSelected = (repo: Repository) => {
