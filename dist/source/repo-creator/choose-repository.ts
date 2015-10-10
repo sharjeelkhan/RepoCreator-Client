@@ -129,7 +129,7 @@ export class ChooseRepository {
 			}).then(x => {
 			this.searching = false;
 			});
-			this.searching = true;
+			this.searching = true;	
 	}
 
 	protected repoSelected = (repo: Repository) => {
