@@ -69,7 +69,7 @@
 .choose-repository .indicator{
 	color:#608e99;
 }
-/* all inner panel */ 
+/*** all inner panel ***/ 
 .choose-repository .panel-collapse > .panel-body{
 	position:relative;
 	overflow:auto;
@@ -90,19 +90,19 @@
 	color:black;
 	display:block;
 	text-overflow: ellipsis;
-        padding-right: 35px;
-        overflow: hidden;
-        padding-left: 20px;
+	padding-right: 35px;
+	overflow: hidden;
+	padding-left: 20px;
 }
 .choose-repository .data-link:hover{
 	color:#6ccfe9;
 }
 .choose-repository .data-inner-link{
 	top: 50%;
-        right: 0px;
-        position: absolute;
-        line-height: 1;
-        margin-top: -7px;
+	right: 0px;
+	position: absolute;
+	line-height: 1;
+	margin-top: -7px;
 	text-align:right;
 }
 /*** inside of FAVORITES ****/
@@ -160,10 +160,10 @@
     border-bottom: none;
 }
 .data-link-img {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    margin-top: -10px;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	margin-top: -10px;
 }
 #loading {
 	width: 100%;
@@ -180,7 +180,6 @@
 }
 #loading-image {
 	position: absolute;
-
 	left: 50%;
 	z-index: 100;
 	margin-top: -16px;
