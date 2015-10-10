@@ -69,8 +69,9 @@
 .choose-repository .indicator{
 	color:#608e99;
 }
-/**** all inner panel ****/
+/* all inner panel */ 
 .choose-repository .panel-collapse > .panel-body{
+	position:relative;
 	overflow:auto;
 	padding:0px;
 	margin:5px;

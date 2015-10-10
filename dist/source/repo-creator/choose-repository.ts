@@ -121,22 +121,15 @@ export class ChooseRepository {
 	}
 	
 	protected search = () => {
-		/*this.clearSearchResults();
-		this.gitHub.search(this.searchInput).then(searchResults => {
+			this.gitHub.search(this.searchInput).then(searchResults => {
 			let resultTemplates = underscore(searchResults).map(searchResult => new Repository(searchResult.owner.login, searchResult.name, false, false, false, true));
 			this.mergeTemplates(resultTemplates);
-		}).catch((error: Error) => {
+			}).catch((error: Error) => {
 			this.eventAggregator.publish(error);
-		});*/
-		this.gitHub.search(this.searchInput).then(searchResults => {
-    let resultTemplates = underscore(searchResults).map(searchResult => new Repository(searchResult.owner.login, searchResult.name, false, false, false, true));
-    this.mergeTemplates(resultTemplates);
-}).catch((error: Error) => {
-    this.eventAggregator.publish(error);
-}).then(x => {
-    this.searching = false;
-});
-this.searching = true;
+			}).then(x => {
+			this.searching = false;
+			});
+			this.searching = true;
 	}
 
 	protected repoSelected = (repo: Repository) => {
@@ -233,12 +226,9 @@ this.searching = true;
 
 	private fetchPopular = (): void => {
 		this.repoCreator.getPopular().then((repos: RepositoryWireModel[]) => {
-			//let popularTemplates = underscore(repos).map((repo: RepositoryWireModel) => new Repository(repo.owner, repo.name, false, false, true, false));
-			//this.mergeTemplates(popularTemplates);
-			//let popularTemplates = underscore([{provider:'GitHub',owner:'Foo',name:'Bar'}]).map((repo: RepositoryWireModel) => new Repository(repo.owner, repo.name, false, false, true, false));
-		    //this.mergeTemplates(popularTemplates);
-			let popularTemplates = underscore([{provider:"GitHub",owner:"test",name:"Templates-Aurelia-TypeScript-Templates-Aurelia-TypeScript-Templates-Aurelia-TypeScript-Templates-Aurelia-TypeScript-Templates-Aurelia-TypeScript-Templates-Aurelia-TypeScript-Templates-Aurelia-TypeScript "}]).map((repo: RepositoryWireModel) => new Repository(repo.owner, repo.name, false, false, true, false));
-		    this.mergeTemplates(popularTemplates);
+			let popularTemplates = underscore(repos).map((repo: RepositoryWireModel) => new Repository(repo.owner, repo.name, false, false, true, false));
+			this.mergeTemplates(popularTemplates);
+			
 		}).catch((error: Error) => {
 			this.eventAggregator.publish(error);
 		});
