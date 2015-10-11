@@ -9,7 +9,7 @@ export class ChooseName {
 	constructor(
 		private router: Router,
 		private eventAggregator: EventAggregator,
-		validation: Validation
+		protected validation: Validation
 	) {
 
 		this.validation = validation.on(this)
@@ -21,7 +21,6 @@ export class ChooseName {
 	private templateName: string;
 
 	protected newRepoName: string = '';
-	protected validation: Validation;
 
 	public activate(parameters: any) {
 		this.templateOwner = parameters.owner;
