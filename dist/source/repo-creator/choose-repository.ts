@@ -18,7 +18,7 @@ class Repository {
 		public sponsored: boolean,
 		public popular: boolean,
 		public result: boolean
-		) { }
+	) {}
 
 	equals = (other: Repository): boolean => {
 		return this.owner == other.owner
@@ -69,7 +69,7 @@ export class ChooseRepository {
 		private eventAggregator: EventAggregator,
 		protected validation: Validation
 	) {
-		validation.on(this)
+		this.validation = validation.on(this)
 			.ensure('searchInput')
 			.isNotEmpty();
 	}
