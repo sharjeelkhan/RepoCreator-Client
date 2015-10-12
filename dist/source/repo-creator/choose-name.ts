@@ -12,7 +12,7 @@ export class ChooseName {
 		protected validation: Validation
 	) {
 
-		this.validation = validation.on(this)
+		validation.on(this)
 			.ensure('newRepoName')
 			.isNotEmpty();
 	}
@@ -33,11 +33,9 @@ export class ChooseName {
 	}
 
 	protected createRepository = (): void => {
-		this.validation.validate()
-			.then(() => {
-				this.router.navigate(`replacements/${this.templateOwner}/${this.templateName}/${this.newRepoName}`);
-			})
-			.catch((validationResult: any) => {
-			});
+		this.validation.validate().then(() => {
+			this.router.navigate(`replacements/${this.templateOwner}/${this.templateName}/${this.newRepoName}`);
+		}).catch((validationResult: any) => {
+		});
 	}
 }
