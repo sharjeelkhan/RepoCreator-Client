@@ -1,9 +1,9 @@
 .choose-repository .outlined {
 	text-shadow:
-    -1px -1px 0 #000,
-     1px -1px 0 #000,
-    -1px  1px 0 #000,
-     1px  1px 0 #000;
+	-1px -1px 0 #000,
+	 1px -1px 0 #000,
+	-1px  1px 0 #000,
+	 1px  1px 0 #000;
 }
 .choose-repository a:hover,a:link,a:visited{
 	text-decoration: none;
@@ -52,12 +52,12 @@
 	padding:0px;
 }
 .choose-repository .panel-default > .panel-top{
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
 }
 .choose-repository .panel-default > .panel-bottom{
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
 }
 .choose-repository .accordion-toggle{
 	padding-top:11px;
@@ -89,19 +89,19 @@
 	color:black;
 	display:block;
 	text-overflow: ellipsis;
-        padding-right: 35px;
-        overflow: hidden;
-        padding-left: 20px;
+	padding-right: 35px;
+	overflow: hidden;
+	padding-left: 20px;
 }
 .choose-repository .data-link:hover{
 	color:#6ccfe9;
 }
 .choose-repository .data-inner-link{
 	top: 50%;
-        right: 0px;
-        position: absolute;
-        line-height: 1;
-        margin-top: -7px;
+	right: 0px;
+	position: absolute;
+	line-height: 1;
+	margin-top: -7px;
 	text-align:right;
 }
 /*** inside of FAVORITES ****/
@@ -156,11 +156,16 @@
 }
 
 .data-row:last-child {
-    border-bottom: none;
+	border-bottom: none;
 }
 .data-link-img {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    margin-top: -10px;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	margin-top: -10px;
+}
+
+.choose-repository #searchBtn {
+	border: none;
+	padding: 0;
 }

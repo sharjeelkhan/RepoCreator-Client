@@ -105,14 +105,16 @@
 					</div>
 					<div class="panel-collapse collapse" class.bind="isSearchSelected ? 'in' : ''">
 						<div class="panel-body">
-							<div class="search-area" onkeypress="event.keyCode==13?document.getElementById('searchBtn').click():''">
+							<form novalidate class="search-area" submit.delegate="search()">
 								<div class="input-group">
 									<input type="text" class="form-control search-box" placeholder="GitHub Search Terms." value.two-way="searchInput"/>
 									<span class="input-group-addon search-button">
-										<a href="" id="searchBtn" type="submit" click.trigger="search()" disabled.bind="inputValidated"><img src="resources/icons/Search.svg" height="36" disabled.bind="inputValidated"/></a>
+										<button type="submit" id="searchBtn">
+											<img src="resources/icons/Search.svg" height="36" disabled.bind="inputValidated"/>
+										</button>
 									</span>
 								</div>
-							</div>
+							</form>
 							<div>
 								<div class="data-row" repeat.for="template of resultTemplates">
 									<a href="" class="data-link" click.delegate="$parent.repoSelected(template)">

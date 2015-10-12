@@ -7,6 +7,7 @@ import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { autoinject } from 'aurelia-dependency-injection';
 import { computedFrom } from 'aurelia-binding';
+import { Validation } from 'aurelia-validation';
 import underscore from 'underscore';
 
 class Repository {
@@ -17,7 +18,7 @@ class Repository {
 		public sponsored: boolean,
 		public popular: boolean,
 		public result: boolean
-	) {}
+		) { }
 
 	equals = (other: Repository): boolean => {
 		return this.owner == other.owner
@@ -54,7 +55,7 @@ export class ChooseRepository {
 	private sponsoredTemplates: Repository[] = [];
 	private popularTemplates: Repository[] = [];
 	private resultTemplates: Repository[] = [];
-	
+
 	protected selectedSection: Sections = Sections.SPONSORED;
 
 	protected searchInput: string;
@@ -65,8 +66,13 @@ export class ChooseRepository {
 		private repoCreator: RepoCreator,
 		private gitHub: GitHub,
 		private router: Router,
-		private eventAggregator: EventAggregator
-	) {}
+		private eventAggregator: EventAggregator,
+		protected validation: Validation
+	) {
+		validation.on(this)
+			.ensure('searchInput')
+			.isNotEmpty();
+	}
 
 	activate() {
 		this.fetchSponsored();
@@ -78,27 +84,27 @@ export class ChooseRepository {
 	get loggedIn(): boolean {
 		return this.oAuth.isLoggedOrLoggingIn;
 	}
-	
+
 	@computedFrom('searchInput')
 	protected get inputValidated(): boolean {
 		return !!this.searchInput;
 	}
-	
+
 	@computedFrom('selectedSection')
-	protected get isSponsoredSelected() : boolean {
+	protected get isSponsoredSelected(): boolean {
 		return this.selectedSection == Sections.SPONSORED;
 	}
-	
+
 	@computedFrom('selectedSection')
 	protected get isFavoritesSelected(): boolean {
 		return this.selectedSection == Sections.FAVORITES;
 	}
 
 	@computedFrom('selectedSection')
-	protected get isPopularSelected() : boolean {
+	protected get isPopularSelected(): boolean {
 		return this.selectedSection == Sections.POPULAR;
 	}
-	
+
 	@computedFrom('selectedSection')
 	protected get isSearchSelected(): boolean {
 		return this.selectedSection == Sections.SEARCH;
@@ -107,26 +113,29 @@ export class ChooseRepository {
 	protected showSponsored = () => {
 		this.selectedSection = Sections.SPONSORED;
 	}
-	
+
 	protected showFavorites = () => {
 		this.selectedSection = Sections.FAVORITES;
 	}
-	
+
 	protected showPopular = () => {
 		this.selectedSection = Sections.POPULAR;
 	}
-	
+
 	protected showSearch = () => {
 		this.selectedSection = Sections.SEARCH;
 	}
-	
+
 	protected search = () => {
-		this.clearSearchResults();
-		this.gitHub.search(this.searchInput).then(searchResults => {
-			let resultTemplates = underscore(searchResults).map(searchResult => new Repository(searchResult.owner.login, searchResult.name, false, false, false, true));
-			this.mergeTemplates(resultTemplates);
-		}).catch((error: Error) => {
-			this.eventAggregator.publish(error);
+		this.validation.validate().then(() => {
+			this.clearSearchResults();
+			this.gitHub.search(this.searchInput).then(searchResults => {
+				let resultTemplates = underscore(searchResults).map(searchResult => new Repository(searchResult.owner.login, searchResult.name, false, false, false, true));
+				this.mergeTemplates(resultTemplates);
+			}).catch((error: Error) => {
+				this.eventAggregator.publish(error);
+			});
+		}).catch((validationResult: any) => {
 		});
 	}
 
@@ -198,8 +207,8 @@ export class ChooseRepository {
 
 	private clearSearchResults = () => {
 		this.allTemplates = underscore(this.allTemplates)
-		.each(template => template.result = false)
-		.filter(template => template.result || template.favorite || template.sponsored || template.popular);
+			.each(template => template.result = false)
+			.filter(template => template.result || template.favorite || template.sponsored || template.popular);
 	}
 
 	// ----
