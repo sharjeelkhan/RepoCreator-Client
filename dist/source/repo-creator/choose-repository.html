@@ -1,5 +1,5 @@
 <template>
-	<require from="./choose-repository.css" as="scoped"></require>
+	<require from="./choose-repository.css"></require>
 
 	<div class="container-fluid choose-repository">
 		<div class="row">
@@ -9,7 +9,7 @@
 			</div>
 			<div class="col-xs-12 panel-group" id="accordion">
 				<div class="panel panel-default">
-					
+
 					<!------------- This section is for SPONSORED -------------->
 					<div class="panel-heading panel-top">
 						<h4 class="panel-title">
@@ -35,7 +35,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<!------------- This section is for FAVORITES -------------->
 					<div class="panel-heading">
 						<h4 class="panel-title">
@@ -66,7 +66,7 @@
 							<button class="fav-button" type="submit" click.delegate="fetchFavorites()">LOG IN</button>
 						</div>
 					</div>
-					
+
 					<!------------- This section is for POPULAR -------------->
 					<div class="panel-heading">
 						<h4 class="panel-title">
@@ -76,7 +76,6 @@
 						</h4>
 					</div>
 					<div class="panel-collapse collapse" class.bind="isPopularSelected ? 'in' : ''">
-					
 							<div class="panel-body">
 								<div class="data-row" repeat.for="template of popularTemplates">
 									<a href="" class="data-link" click.delegate="$parent.repoSelected(template)"><img src="resources/icons/Repo.svg" class="data-link-img" style="padding-right:12px;"/>
@@ -92,9 +91,8 @@
 									</a>
 								</div>
 							</div>
-						
 					</div>
-					
+
 					<!------------- This section is for SEARCH -------------->
 					<div class="panel-heading panel-bottom">
 						<h4 class="panel-title">
@@ -109,10 +107,14 @@
 								<div class="input-group">
 									<input type="text" class="form-control search-box" placeholder="GitHub Search Terms." value.two-way="searchInput"/>
 									<span class="input-group-addon search-button">
-										<button type="submit" id="searchBtn">
-											<img src="resources/icons/Search.svg" height="36" disabled.bind="inputValidated"/>
-										</button>
+										<a href="" id="searchBtn" type="submit" click.trigger="search()" disabled.bind="inputValidated"><img src="resources/icons/Search.svg" height="36" disabled.bind="inputValidated"/></a>
+										<img src="resources/icons/Search.svg" height="36" disabled.bind="inputValidated"/>
 									</span>
+									<div id="loading"  if.bind="searching">
+											<li id="loading-image" class="loader" style="list-style-type: none;">
+												<i class="fa fa-spinner fa-spin fa-2x"></i>
+											</li>
+									 </div>
 								</div>
 								<p class="help-block aurelia-validation-message" show.bind="validation.result.properties.searchInput.isDirty && !validation.result.properties.searchInput.isValid">This field is required.</p>
 							</form>

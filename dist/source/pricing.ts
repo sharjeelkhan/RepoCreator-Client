@@ -1,2 +1,1 @@
-export class Pricing {
-}
+export class Pricing {}
