@@ -105,7 +105,7 @@
 					</div>
 					<div class="panel-collapse collapse" class.bind="isSearchSelected ? 'in' : ''">
 						<div class="panel-body">
-							<form novalidate class="search-area" submit.delegate="search()">
+							<form novalidate submit.delegate="search()" class="search-area ${validation.result.properties.searchInput.isDirty && !validation.result.properties.searchInput.isValid ? 'has-warning' : ''}">
 								<div class="input-group">
 									<input type="text" class="form-control search-box" placeholder="GitHub Search Terms." value.two-way="searchInput"/>
 									<span class="input-group-addon search-button">
@@ -114,6 +114,7 @@
 										</button>
 									</span>
 								</div>
+								<p class="help-block aurelia-validation-message" show.bind="validation.result.properties.searchInput.isDirty && !validation.result.properties.searchInput.isValid">This field is required.</p>
 							</form>
 							<div>
 								<div class="data-row" repeat.for="template of resultTemplates">
