@@ -11,8 +11,7 @@ export class ChooseName {
 		private eventAggregator: EventAggregator,
 		protected validation: Validation
 	) {
-
-		validation.on(this)
+		this.validation = validation.on(this)
 			.ensure('newRepoName')
 			.isNotEmpty();
 	}
