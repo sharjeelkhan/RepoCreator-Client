@@ -6,6 +6,7 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import { RepoCreator } from 'source/services/RepoCreator';
 import { ProgressModal } from 'source/components/progress-modal';
 import { CompleteModal } from 'source/components/complete-modal';
+import { Validation } from 'aurelia-validation';
 import underscore from 'underscore';
 import 'bootstrap';
 
@@ -23,8 +24,15 @@ export class EnterReplacements {
 	constructor(
 		private router: Router,
 		private eventAggregator: EventAggregator,
-		private repoCreator: RepoCreator
-	) {}
+		private repoCreator: RepoCreator,
+		protected validation: Validation
+	) {
+		this.validation = validation.on(this.replacements)
+			//.ensureForEach('replacements')
+			.ensure('value')
+			.isNotEmpty()
+			.etc(); // repeat all the same stuff as in the Item validation
+	}
 
 	public activate(parameters: any) {
 		// TODO: work-around for https://github.com/aurelia/history/issues/2
@@ -63,17 +71,23 @@ export class EnterReplacements {
 	}
 
 	protected createRepo = () => {
-		let replacementsMap = underscore(this.replacements).reduce((map: any, replacement: Replacement) => {
-			map[replacement.name] = replacement.value;
-			return map;
-		}, {});
-		let promise = this.repoCreator.createRepo(this.templateOwner, this.templateName, this.destinationName, replacementsMap);
-		promise.then((result: string) => {
-			return this.completeModal.show(result)
-		}).catch((error: Error) => {
-			this.eventAggregator.publish(error)
+		//let replacementsMap = underscore(this.replacements).reduce((map: any, replacement: Replacement) => {
+		//	map[replacement.name] = replacement.value;
+		//	return map;
+		//}, {});
+		//let promise = this.repoCreator.createRepo(this.templateOwner, this.templateName, this.destinationName, replacementsMap);
+		//promise.then((result: string) => {
+		//	return this.completeModal.show(result)
+		//}).catch((error: Error) => {
+		//	this.eventAggregator.publish(error)
+		//});
+		//this.progressModal.show(promise);
+
+		this.validation.validate().then(() => {
+			console.log("true");
+		}).catch((validationResult: any) => {
+			console.log("false");
 		});
-		this.progressModal.show(promise);
 	}
 
 	private updateQueryString(): void {
