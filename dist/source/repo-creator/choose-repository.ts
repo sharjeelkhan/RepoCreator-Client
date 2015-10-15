@@ -128,6 +128,7 @@ export class ChooseRepository {
 
 	protected search = () => {
 		this.validation.validate().then(() => {
+			this.clearSearchResults();
 			this.gitHub.search(this.searchInput).then(searchResults => {
 				let resultTemplates = underscore(searchResults).map(searchResult => new Repository(searchResult.owner.login, searchResult.name, false, false, false, true));
 				this.mergeTemplates(resultTemplates);

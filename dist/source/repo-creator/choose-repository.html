@@ -107,14 +107,15 @@
 								<div class="input-group">
 									<input type="text" class="form-control search-box" placeholder="GitHub Search Terms." value.two-way="searchInput"/>
 									<span class="input-group-addon search-button">
-										<a href="" id="searchBtn" type="submit" click.trigger="search()" disabled.bind="inputValidated"><img src="resources/icons/Search.svg" height="36" disabled.bind="inputValidated"/></a>
-										<img src="resources/icons/Search.svg" height="36" disabled.bind="inputValidated"/>
+										<a href="" id="searchBtn" type="submit" click.trigger="search()" disabled.bind="inputValidated">
+											<img src="resources/icons/Search.svg" height="36" disabled.bind="inputValidated"/>
+										</a>
 									</span>
 									<div id="loading"  if.bind="searching">
-											<li id="loading-image" class="loader" style="list-style-type: none;">
-												<i class="fa fa-spinner fa-spin fa-2x"></i>
-											</li>
-									 </div>
+										<li id="loading-image" class="loader" style="list-style-type: none;">
+											<i class="fa fa-spinner fa-spin fa-2x"></i>
+										</li>
+									</div>
 								</div>
 								<p class="help-block aurelia-validation-message" show.bind="validation.result.properties.searchInput.isDirty && !validation.result.properties.searchInput.isValid">This field is required.</p>
 							</form>
