@@ -41,6 +41,7 @@ System.config({
     "bootstrap": "github:twbs/bootstrap@3.3.5",
     "complete-modal": "local-component/complete-modal",
     "css": "github:systemjs/plugin-css@0.1.13",
+    "error-modal": "local-component/error-modal",
     "font-awesome": "npm:font-awesome@4.3.0",
     "jquery": "github:components/jquery@2.1.4",
     "lz-string": "bower:lz-string@1.4.4",

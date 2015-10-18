@@ -41,6 +41,7 @@
         "./source/components/nav-bar.ts",
         "./source/components/progress-modal.ts",
         "./source/components/complete-modal.ts",
+        "./source/compononts/error-modal.ts",
         "./source/main.ts",
         "./source/models/CreateRepo.ts",
         "./source/models/FindKeys.ts",
