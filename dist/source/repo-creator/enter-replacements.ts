@@ -10,7 +10,7 @@ import { Validation } from 'aurelia-validation';
 import underscore from 'underscore';
 import 'bootstrap';
 
-@inject(Router, EventAggregator, RepoCreator)
+@inject(Router, EventAggregator, RepoCreator, Validation)
 export class EnterReplacements {
 	activated: boolean = false;
 	templateOwner: string = null;
@@ -27,11 +27,14 @@ export class EnterReplacements {
 		private repoCreator: RepoCreator,
 		protected validation: Validation
 	) {
-		this.validation = validation.on(this.replacements)
-			//.ensureForEach('replacements')
-			.ensure('value')
-			.isNotEmpty()
-			.etc(); // repeat all the same stuff as in the Item validation
+		var self = this;
+		setTimeout(function(){
+			self.replacements.forEach(function(item){
+				self.validation = validation.on(item)
+					.ensure('value')
+					.isNotEmpty();
+			});
+		}, 1000);
 	}
 
 	public activate(parameters: any) {
