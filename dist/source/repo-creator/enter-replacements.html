@@ -16,7 +16,7 @@
 		<div style="text-align:center;" if.bind="!replacements">
 			<i class="fa fa-spinner fa-spin" style="font-size:15em;color:#40c5e5;"></i><br/><br/>Finding Replacements...
 		</div>
-		<form name="stringForm" class="row" if.bind="replacements">
+		<form name="stringForm" validate.bind="validation" class="row" if.bind="replacements">
 			<!------------------- this is for string input ------------------>
 			<div class="col-xs-12 col-sm-6 col-lg-4" repeat.for="replacement of replacements">
 				<input  class="string-input" type="text" value.bind="replacement.value" placeholder.bind="replacement.friendlyName" change.delegate="$parent.onChanged()"/>
@@ -24,7 +24,7 @@
 			<!----------- this section is for bottom submit button ---------->
 			<div class="col-xs-12">
 				<div style="float:right;">
-					<button class="btn btn-submit"type="submit" click.delegate="createRepo()">CREATE</button>
+					<button class="btn btn-submit" type="submit" click.delegate="createRepo()">CREATE</button>
 				</div>
 			</div>
 		</form>
