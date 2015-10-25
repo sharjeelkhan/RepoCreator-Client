@@ -29,8 +29,8 @@ export class EnterReplacements {
 	) {
 		var self = this;
 		setTimeout(function(){
-			self.replacements.forEach(function(item){
-				self.validation = validation.on(item)
+			self.replacements.forEach(function(item, idx){
+				self.validation[idx] = validation.on(item)
 					.ensure('value')
 					.isNotEmpty();
 			});
@@ -85,12 +85,13 @@ export class EnterReplacements {
 		//	this.eventAggregator.publish(error)
 		//});
 		//this.progressModal.show(promise);
-
-		this.validation.validate().then(() => {
-			console.log("true");
-		}).catch((validationResult: any) => {
-			console.log("false");
-		});
+		for(var i = 0; i < this.replacements.length; i++) {
+			this.validation[i].validate().then(() => {
+				console.log("true");
+			}).catch((validationResult:any) => {
+				console.log("false");
+			});
+		}
 	}
 
 	private updateQueryString(): void {
