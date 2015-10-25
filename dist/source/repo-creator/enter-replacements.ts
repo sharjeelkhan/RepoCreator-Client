@@ -26,16 +26,7 @@ export class EnterReplacements {
 		private eventAggregator: EventAggregator,
 		private repoCreator: RepoCreator,
 		protected validation: Validation
-	) {
-		var self = this;
-		setTimeout(function(){
-			self.replacements.forEach(function(item, idx){
-				self.validation[idx] = validation.on(item)
-					.ensure('value')
-					.isNotEmpty();
-			});
-		}, 1000);
-	}
+	) { }
 
 	public activate(parameters: any) {
 		// TODO: work-around for https://github.com/aurelia/history/issues/2
@@ -48,8 +39,22 @@ export class EnterReplacements {
 		this.replacements = this.tryGetReplacementsFromQueryStringKeys(parameters.keys);
 		if (!this.replacements)
 			this.findKeys();
+		else
+			this.updateValidation();
 
 		this.activated = true;
+	}
+
+	protected updateValidation(): void {
+		var self = this;
+		setTimeout(function () {
+			self.replacements.forEach(function (item, idx) {
+				self.validation[idx] = self.validation.on(item)
+					.ensure('value')
+					.isNotEmpty()
+					.withMessage("This field is required.");
+			});
+		}, 1000);
 	}
 
 	protected get canCreate(): boolean {
@@ -74,24 +79,30 @@ export class EnterReplacements {
 	}
 
 	protected createRepo = () => {
-		//let replacementsMap = underscore(this.replacements).reduce((map: any, replacement: Replacement) => {
-		//	map[replacement.name] = replacement.value;
-		//	return map;
-		//}, {});
-		//let promise = this.repoCreator.createRepo(this.templateOwner, this.templateName, this.destinationName, replacementsMap);
-		//promise.then((result: string) => {
-		//	return this.completeModal.show(result)
-		//}).catch((error: Error) => {
-		//	this.eventAggregator.publish(error)
-		//});
-		//this.progressModal.show(promise);
+		// this flag is true when all textbox have value
+		var isInputValid = true;
 		for(var i = 0; i < this.replacements.length; i++) {
-			this.validation[i].validate().then(() => {
-				console.log("true");
-			}).catch((validationResult:any) => {
-				console.log("false");
+			this.validation[i].validate().catch((validationResult: any) => {
+				isInputValid = false;
 			});
 		}
+
+		setTimeout(function () {
+			if (!isInputValid)
+				return;
+
+			let replacementsMap = underscore(this.replacements).reduce((map: any, replacement: Replacement) => {
+				map[replacement.name] = replacement.value;
+				return map;
+			}, {});
+			let promise = this.repoCreator.createRepo(this.templateOwner, this.templateName, this.destinationName, replacementsMap);
+			promise.then((result: string) => {
+				return this.completeModal.show(result)
+			}).catch((error: Error) => {
+				this.eventAggregator.publish(error)
+			});
+			this.progressModal.show(promise);
+		}, 1000);
 	}
 
 	private updateQueryString(): void {
@@ -106,6 +117,8 @@ export class EnterReplacements {
 		this.repoCreator.findKeys(this.templateOwner, this.templateName).then((results: string[]) => {
 			this.replacements = this.keysToReplacements(results);
 			this.onChanged();
+
+			this.updateValidation();
 		}).catch((error: Error) => {
 			// TODO: pop-up error and then navigate back to choose-repository
 			this.eventAggregator.publish(error);
