@@ -51,6 +51,7 @@ System.config({
     "stripe-checkout": "https://proxy.zoltu.io/stripe/checkout.js",
     "typescript": "npm:typescript@1.6.2",
     "underscore": "npm:underscore@1.8.3",
+    "validation-hint": "local-component/validation-hint",
     "github:aurelia/binding@0.9.1": {
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.10.1",
       "aurelia-metadata": "github:aurelia/metadata@0.8.0",
