@@ -6,7 +6,7 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import { RepoCreator } from 'source/services/RepoCreator';
 import { ProgressModal } from 'source/components/progress-modal';
 import { CompleteModal } from 'source/components/complete-modal';
-import { Validation } from 'aurelia-validation';
+import { Validation, ValidationGroup } from 'aurelia-validation';
 import underscore from 'underscore';
 import 'bootstrap';
 
@@ -20,12 +20,13 @@ export class EnterReplacements {
 	replacements: Replacement[] = null;
 	progressModal: ProgressModal = null;
 	completeModal: CompleteModal = null;
+	validationGroup: ValidationGroup;
 
 	constructor(
 		private router: Router,
 		private eventAggregator: EventAggregator,
 		private repoCreator: RepoCreator,
-		protected validation: Validation
+		private validation: Validation
 	) { }
 
 	public activate(parameters: any) {
@@ -39,22 +40,12 @@ export class EnterReplacements {
 		this.replacements = this.tryGetReplacementsFromQueryStringKeys(parameters.keys);
 		if (!this.replacements)
 			this.findKeys();
-		else
-			this.updateValidation();
 
 		this.activated = true;
 	}
 
-	protected updateValidation(): void {
-		var self = this;
-		setTimeout(function () {
-			self.replacements.forEach(function (item, idx) {
-				self.validation[idx] = self.validation.on(item)
-					.ensure('value')
-					.isNotEmpty()
-					.withMessage("This field is required.");
-			});
-		}, 1000);
+	protected attached() {
+		this.setupValidation();
 	}
 
 	protected get canCreate(): boolean {
@@ -79,18 +70,7 @@ export class EnterReplacements {
 	}
 
 	protected createRepo = () => {
-		// this flag is true when all textbox have value
-		var isInputValid = true;
-		for(var i = 0; i < this.replacements.length; i++) {
-			this.validation[i].validate().catch((validationResult: any) => {
-				isInputValid = false;
-			});
-		}
-
-		setTimeout(function () {
-			if (!isInputValid)
-				return;
-
+		this.validationGroup.validate().then(validationResult => {
 			let replacementsMap = underscore(this.replacements).reduce((map: any, replacement: Replacement) => {
 				map[replacement.name] = replacement.value;
 				return map;
@@ -102,7 +82,7 @@ export class EnterReplacements {
 				this.eventAggregator.publish(error)
 			});
 			this.progressModal.show(promise);
-		}, 1000);
+		});
 	}
 
 	private updateQueryString(): void {
@@ -117,8 +97,7 @@ export class EnterReplacements {
 		this.repoCreator.findKeys(this.templateOwner, this.templateName).then((results: string[]) => {
 			this.replacements = this.keysToReplacements(results);
 			this.onChanged();
-
-			this.updateValidation();
+			this.setupValidation();
 		}).catch((error: Error) => {
 			// TODO: pop-up error and then navigate back to choose-repository
 			this.eventAggregator.publish(error);
@@ -141,6 +120,21 @@ export class EnterReplacements {
 
 	private keysToReplacements(keys: string[]): Replacement[] {
 		return underscore(keys).map((key: string) => new Replacement(key, ''));
+	}
+
+	private setupValidation() {
+		// any time the array of replacements changes we need to re-bind validation so we get the magic highlights
+		if (this.validationGroup)
+			this.validationGroup.destroy();
+		// setImmediate because we need to wait until after the DOM has the new elements before we hook up validation
+		setImmediate(() => {
+			this.validationGroup = this.validation.on(this);
+			this.replacements.forEach((replacement, index) => {
+				this.validationGroup
+					.ensure(`replacements.${index}.value`)
+					.isNotEmpty();
+			});
+		});
 	}
 }
 

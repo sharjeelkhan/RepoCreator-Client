@@ -38,6 +38,7 @@
     "files": [
         "./source/about.ts",
         "./source/app.ts",
+        "./source/components/validation-hint.ts",
         "./source/components/nav-bar.ts",
         "./source/components/progress-modal.ts",
         "./source/components/complete-modal.ts",
@@ -74,6 +75,7 @@
         "./jspm_packages/github/aurelia/task-queue@0.7.0/aurelia-task-queue.d.ts",
         "./jspm_packages/github/aurelia/templating-binding@0.15.0/aurelia-templating-binding.d.ts",
         "./jspm_packages/github/aurelia/templating@0.15.3/aurelia-templating.d.ts",
+        "./jspm_packages/github/aurelia/validation@0.3.1/aurelia-validation.d.ts",
         "./jspm_packages/npm/typescript@1.6.2/lib/lib.core.d.ts",
         "./jspm_packages/npm/typescript@1.6.2/lib/lib.core.es6.d.ts",
         "./jspm_packages/npm/typescript@1.6.2/lib/lib.d.ts",
