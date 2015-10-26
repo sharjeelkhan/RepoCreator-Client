@@ -6,10 +6,11 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import { RepoCreator } from 'source/services/RepoCreator';
 import { ProgressModal } from 'source/components/progress-modal';
 import { CompleteModal } from 'source/components/complete-modal';
+import { Validation, ValidationGroup } from 'aurelia-validation';
 import underscore from 'underscore';
 import 'bootstrap';
 
-@inject(Router, EventAggregator, RepoCreator)
+@inject(Router, EventAggregator, RepoCreator, Validation)
 export class EnterReplacements {
 	activated: boolean = false;
 	templateOwner: string = null;
@@ -19,12 +20,14 @@ export class EnterReplacements {
 	replacements: Replacement[] = null;
 	progressModal: ProgressModal = null;
 	completeModal: CompleteModal = null;
+	validationGroup: ValidationGroup;
 
 	constructor(
 		private router: Router,
 		private eventAggregator: EventAggregator,
-		private repoCreator: RepoCreator
-	) {}
+		private repoCreator: RepoCreator,
+		private validation: Validation
+	) { }
 
 	public activate(parameters: any) {
 		// TODO: work-around for https://github.com/aurelia/history/issues/2
@@ -39,6 +42,10 @@ export class EnterReplacements {
 			this.findKeys();
 
 		this.activated = true;
+	}
+
+	protected attached() {
+		this.setupValidation();
 	}
 
 	protected get canCreate(): boolean {
@@ -63,17 +70,19 @@ export class EnterReplacements {
 	}
 
 	protected createRepo = () => {
-		let replacementsMap = underscore(this.replacements).reduce((map: any, replacement: Replacement) => {
-			map[replacement.name] = replacement.value;
-			return map;
-		}, {});
-		let promise = this.repoCreator.createRepo(this.templateOwner, this.templateName, this.destinationName, replacementsMap);
-		promise.then((result: string) => {
-			return this.completeModal.show(result)
-		}).catch((error: Error) => {
-			this.eventAggregator.publish(error)
+		this.validationGroup.validate().then(validationResult => {
+			let replacementsMap = underscore(this.replacements).reduce((map: any, replacement: Replacement) => {
+				map[replacement.name] = replacement.value;
+				return map;
+			}, {});
+			let promise = this.repoCreator.createRepo(this.templateOwner, this.templateName, this.destinationName, replacementsMap);
+			promise.then((result: string) => {
+				return this.completeModal.show(result)
+			}).catch((error: Error) => {
+				this.eventAggregator.publish(error)
+			});
+			this.progressModal.show(promise);
 		});
-		this.progressModal.show(promise);
 	}
 
 	private updateQueryString(): void {
@@ -88,6 +97,7 @@ export class EnterReplacements {
 		this.repoCreator.findKeys(this.templateOwner, this.templateName).then((results: string[]) => {
 			this.replacements = this.keysToReplacements(results);
 			this.onChanged();
+			this.setupValidation();
 		}).catch((error: Error) => {
 			// TODO: pop-up error and then navigate back to choose-repository
 			this.eventAggregator.publish(error);
@@ -110,6 +120,21 @@ export class EnterReplacements {
 
 	private keysToReplacements(keys: string[]): Replacement[] {
 		return underscore(keys).map((key: string) => new Replacement(key, ''));
+	}
+
+	private setupValidation() {
+		// any time the array of replacements changes we need to re-bind validation so we get the magic highlights
+		if (this.validationGroup)
+			this.validationGroup.destroy();
+		// setImmediate because we need to wait until after the DOM has the new elements before we hook up validation
+		setImmediate(() => {
+			this.validationGroup = this.validation.on(this);
+			this.replacements.forEach((replacement, index) => {
+				this.validationGroup
+					.ensure(`replacements.${index}.value`)
+					.isNotEmpty();
+			});
+		});
 	}
 }
 
