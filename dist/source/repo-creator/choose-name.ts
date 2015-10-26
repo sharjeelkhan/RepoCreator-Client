@@ -2,16 +2,18 @@ import { autoinject } from 'aurelia-dependency-injection';
 import { computedFrom } from 'aurelia-binding';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { Validation } from 'aurelia-validation';
+import { Validation, ValidationGroup } from 'aurelia-validation';
 
 @autoinject()
 export class ChooseName {
+	protected validationGroup: ValidationGroup
+
 	constructor(
 		private router: Router,
 		private eventAggregator: EventAggregator,
-		protected validation: Validation
+		validation: Validation
 	) {
-		this.validation = validation.on(this)
+		this.validationGroup = validation.on(this)
 			.ensure('newRepoName')
 			.isNotEmpty();
 	}
@@ -32,9 +34,8 @@ export class ChooseName {
 	}
 
 	protected createRepository = (): void => {
-		this.validation.validate().then(() => {
+		this.validationGroup.validate().then(() => {
 			this.router.navigate(`replacements/${this.templateOwner}/${this.templateName}/${this.newRepoName}`);
-		}).catch((validationResult: any) => {
 		});
 	}
 }

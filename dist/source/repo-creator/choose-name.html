@@ -5,17 +5,14 @@
 		<div class="col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10 declaration-box">
 			<div class="circle-node">2</div><div class="declaration">GIVE A NAME FOR YOUR NEW REPOSITORY</div>
 		</div>
-		<form name="repoForm" validate.bind="validation" submit.delegate="createRepository()" class="${validation.result.properties.newRepoName.isDirty && !validation.result.properties.newRepoName.isValid ? 'has-warning' : ''}">
-			<div class="col-xs-12">
-				<div>
-					<label class="repo-label">Name:</label>
-					<p class="help-block aurelia-validation-message" show.bind="validation.result.properties.newRepoName.isDirty">${validation.result.properties.newRepoName.message}</p>
-				</div>
-				<input class="repo-input" type="text" name="repoName" placeholder="my_repository" value.bind="newRepoName" />
+		<form name="repoForm" validate.bind="validationGroup" submit.delegate="createRepository()">
+			<div class="form-group col-xs-12">
+				<label class="repo-label">Name:</label>
+				<input class="form-control repo-input" type="text" name="repoName" placeholder="my_repository" value.bind="newRepoName" />
 			</div>
 
 			<!----------- Submit button ---------->
-			<div class="col-xs-12">
+			<div class="form-group col-xs-12">
 				<button class="btn btn-submit" type="submit">SUBMIT</button>
 			</div>
 		</form>
