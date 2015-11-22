@@ -1,4 +1,5 @@
-import {inject, customAttribute} from 'aurelia-framework';
+import {inject} from 'aurelia-dependency-injection';
+import {customAttribute} from 'aurelia-templating';
 
 @customAttribute("validation-hint")
 @inject(Element)
