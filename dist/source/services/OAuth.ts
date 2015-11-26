@@ -56,6 +56,12 @@ export class OAuth {
 	private auth0: Auth0LockWrapper = new Auth0LockWrapper();
 	private _userPromise: Promise<User> = null;
 
+	constructor() {
+		let localStorageJwtToken = JSON.parse(sessionStorage.getItem('JWT Token'));
+		if (localStorageJwtToken)
+			this._userPromise = Promise.resolve(localStorageJwtToken);
+	}
+
 	private get userPromise(): Promise<User> {
 		// if already logged in, return that promise
 		if (this._userPromise)
@@ -117,7 +123,9 @@ export class OAuth {
 				result[identity.provider] = identity;
 				return result;
 			}, new Map<Identity>());
-			return new User(result.profile.user_id, result.profile.nickname, result.profile.email, result.jwtToken, identities);
+			let user = new User(result.profile.user_id, result.profile.nickname, result.profile.email, result.jwtToken, identities);
+			sessionStorage.setItem('JWT Token', JSON.stringify(user));
+			return user;
 		});
 	}
 }
