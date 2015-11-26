@@ -3,6 +3,7 @@ import { HttpClient, RequestBuilder, HttpResponseMessage } from 'aurelia-http-cl
 import { OAuth } from 'source/services/OAuth';
 import { StripeCheckout, StripeToken } from 'source/services/StripeCheckout';
 import { Repository } from 'source/models/Repository';
+import { SponsoredRepository } from 'source/models/SponsoredRepository';
 import { Request as FindKeysRequest, Progress as FindKeysProgress, Step as FindKeysProgressStep } from 'source/models/FindKeys';
 import { Request as CreateRepoRequest, Progress as CreateRepoProgress, Step as CreateRepoProgressStep } from 'source/models/CreateRepo';
 import underscore from 'underscore';
@@ -108,6 +109,31 @@ export class RepoCreator {
 				.send();
 		}).then(response => {
 			return underscore(response.content).map(item => Repository.deserialize(item));
+		});
+	}
+
+	getMyRepositories(): Promise<SponsoredRepository[]> {
+		return this.oAuth.jwtToken.then(jwtToken => {
+			return this.httpClient.createRequest(`${baseUri}/api/sponsored/mine/`)
+				.asGet()
+				.withHeader('Authorization', `Bearer ${jwtToken}`)
+				.withHeader('Accept', 'application/json')
+				.withHeader('Content-Type', 'application/json')
+				.send();
+		}).then(response => {
+			return underscore(response.content).map(item => SponsoredRepository.deserialize(item));
+		});
+	}
+
+	cancelSponsorship(repository: Repository): Promise {
+		return this.oAuth.jwtToken.then(jwtToken => {
+			return this.httpClient.createRequest(`${baseUri}/api/sponsored/cancel/`)
+				.asDelete()
+				.withContent(repository)
+				.withHeader('Authorization', `Bearer ${jwtToken}`)
+				.withHeader('Accept', 'application/json')
+				.withHeader('Content-Type', 'application/json')
+				.send();
 		});
 	}
 }
