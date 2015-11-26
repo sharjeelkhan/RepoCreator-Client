@@ -29,7 +29,7 @@ export class Progress {
 			input.progress_token,
 			Step.deserialize(input.current_step),
 			input.success_result,
-			input.failure_result
+			input.failure_reason
 		);
 	}
 }
