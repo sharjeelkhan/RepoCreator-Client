@@ -21,7 +21,7 @@ export class Progress {
 		public progress_token: string,
 		public current_step: Step,
 		public success_result: string,
-		public failure_result: string
+		public failure_reason: string
 	) {}
 
 	public static deserialize(input: any): Progress {

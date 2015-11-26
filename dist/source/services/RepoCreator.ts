@@ -172,7 +172,7 @@ class CreateRepo {
 				this.resolve(progress.success_result);
 				break;
 			case CreateRepoProgressStep.Failed:
-				this.reject(new Error(progress.failure_result));
+				this.reject(new Error(progress.failure_reason));
 				break;
 			default:
 				setTimeout(() => this.progress(progress.progress_token), 1000);
