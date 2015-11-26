@@ -129,10 +129,11 @@ export class EnterReplacements {
 		// setImmediate because we need to wait until after the DOM has the new elements before we hook up validation
 		setImmediate(() => {
 			this.validationGroup = this.validation.on(this);
-			this.replacements.forEach((replacement, index) => {
-				this.validationGroup
-					.ensure(`replacements.${index}.value`)
-					.isNotEmpty();
+			if (this.replacements)
+				this.replacements.forEach((replacement, index) => {
+					this.validationGroup
+						.ensure(`replacements.${index}.value`)
+						.isNotEmpty();
 			});
 		});
 	}
