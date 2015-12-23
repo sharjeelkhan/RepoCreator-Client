@@ -8,6 +8,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
 <link href="css/style.css" type="text/css" rel="stylesheet" />
 <link href="css/entypo.css" type="text/css" rel="stylesheet" />
+<!-- enable bootstrap popovers -->
+<script>$(function () { $('[data-toggle="popover"]').popover() })</script>
 <title>Zoltu</title>
 </head>
 <body>
@@ -119,49 +121,44 @@
             </div>
             <div class="container sectionBottomCC0_Public">
             	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                    <div class="sectionBottomPublicInner">
-                        <a title="Any template repository that is both public and CC0 licensed will be free to use.">
-                            <div class="cco_heading_top">CCO</div>
-                            <div class="cco_heading">Access</div>
-                            <div class="cco_content">Public</div>
-                            <div class="cco_heading">Sponsored</div>
-                            <div class="cco_content">No</div>
-                            <div class="coo_priceCircle">Free</div>
-                        </a>
+                    <div class="sectionBottomPublicInner" data-toggle="popover" data-trigger="hover" data-placement="auto top" data-content="Any template repository that is both public and CC0 licensed will be free to use.">
+                        <div class="cco_heading_top">CCO</div>
+                        <div class="cco_heading">Access</div>
+                        <div class="cco_content">Public</div>
+                        <div class="cco_heading">Sponsored</div>
+                        <div class="cco_content">No</div>
+                        <div class="coo_priceCircle">Free</div>
                  	</div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                    <div class="sectionBottomPublicInner">
-                        <a title="You can sponsor a CC0 licensed template repository in order to have it show up in the sponsored list so other users can find it easily. CC0 licensing makes it easier for people to use your template without having to worry about correct attribution.">
+                    <div class="sectionBottomPublicInner" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="You can sponsor a CC0 licensed template repository in order to have it show up in the sponsored list so other users can find it easily. CC0 licensing makes it easier for people to use your template without having to worry about correct attribution.">
                             <div class="cco_heading_top">CCO</div>
                             <div class="cco_heading">Access</div>
                             <div class="cco_content">Public</div>
                             <div class="cco_heading">Sponsored</div>
-                            <div class="cco_content">No</div>
+                            <div class="cco_content">Yes</div>
                             <div class="coo_priceCircle">$5</div>
                         </a>
                  	</div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                    <div class="sectionBottomPublicInner">
-                        <a title="If you would like a repository to be available as at template but do not want to or cannot use the CC0 license then you can sponsor the repository so it is available for use as a template.">
+                    <div class="sectionBottomPublicInner" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="If you would like a repository to be available as at template but do not want to or cannot use the CC0 license then you can sponsor the repository so it is available for use as a template.">
                         	<div class="cco_heading_top">Any</div>
                             <div class="cco_heading">Access</div>
                             <div class="cco_content">Public</div>
                             <div class="cco_heading">Sponsored</div>
-                            <div class="cco_content">No</div>
+                            <div class="cco_content">Yes</div>
                             <div class="coo_priceCircle">$5</div>
                         </a>
                  	</div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                    <div class="sectionBottomPublicInner">
-                    	<a title="If you want to use a private repository as a template you can sponsor it to make it available.">
+                    <div class="sectionBottomPublicInner" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="If you want to use a private repository as a template you can sponsor it to make it available.">
                             <div class="cco_heading_top">Any</div>
                             <div class="cco_heading">Access</div>
-                            <div class="cco_content">Public</div>
+                            <div class="cco_content">Private</div>
                             <div class="cco_heading">Sponsored</div>
-                            <div class="cco_content">No</div>
+                            <div class="cco_content">Yes</div>
                             <div class="coo_priceCircle">$10</div>
                         </a>
                  	</div>
