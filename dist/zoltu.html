@@ -108,13 +108,9 @@
             	<div class="newTemplate_Heading">Creating new template</div>
                 <p>You can use any repository on Github as the template for RepoCreator. If you'd like to create your own template, just create your project like you normally would but anywhere you would type a repo-specific string, instead type magic_variable_magic, magic.variable.magic or magic-variable-magic.</p>
                 <p>For example, if you have the following tag in your template's HTML file:</p>
-                <div class="titleMagicApp">
-                	< title>magic_app_name_magic< / title >
-                </div>
-                <p>When you create a new project from the template you will be prompted for the replacement of app_name. If you set the value to My Cool App, then in the new repo you will have this:</p>
-                <div class="titleMagicApp">
-                	< title >My Cool App< / title>
-                </div>
+                <pre>&lt;title&gt;magic_app_name_magic&lt;/title&gt;</pre>
+                <p>When you create a new project from the template you will be prompted for the replacement of <code>app_name</code>. If you set the value to <code>My Cool App</code>, then in the new repo you will have this:</p>
+                <pre>&lt;title&gt;My Cool App&lt;/title&gt;</pre>
             </div>
             <div id="pricingSection" class="sectionBottom_Sponsorship">
             	Sponsorship and Pricing
