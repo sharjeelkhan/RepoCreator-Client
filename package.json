@@ -32,6 +32,15 @@
     },
     "devDependencies": {
       "typescript": "npm:typescript@^1.7.5"
+    },
+    "overrides": {
+      "npm:aurelia-loader@1.0.0-beta.1": {
+        "dependencies": {
+          "aurelia-metadata": "^1.0.0-beta.1",
+          "aurelia-path": "^1.0.0-beta.1",
+          "core-js": "^1.2.6"
+        }
+      }
     }
   },
   "devDependencies": {
