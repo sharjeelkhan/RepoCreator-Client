@@ -38,6 +38,7 @@ System.config({
     "aurelia-templating": "npm:aurelia-templating@1.0.0-beta.1.0.2",
     "aurelia-validation": "npm:aurelia-validation@0.6.0",
     "auth0-lock": "github:auth0/lock@7.13.0",
+    "auth0/lock": "github:auth0/lock@8.0.0",
     "bootstrap": "github:twbs/bootstrap@3.3.6",
     "complete-modal": "local-component/complete-modal",
     "css": "github:systemjs/plugin-css@0.1.20",
@@ -48,13 +49,16 @@ System.config({
     "nav-bar": "local-component/nav-bar",
     "pagedown": "npm:pagedown@1.1.0",
     "progress-modal": "local-component/progress-modal",
-    "store": "npm:store@1.3.19",
+    "store": "npm:store@1.3.20",
     "stripe-checkout": "https://proxy.zoltu.io/stripe/checkout.js",
     "typescript": "npm:typescript@1.7.5",
     "underscore": "npm:underscore@1.8.3",
     "validation-hint": "local-component/validation-hint",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
+    },
+    "github:jspm/nodelibs-buffer@0.1.0": {
+      "buffer": "npm:buffer@3.6.0"
     },
     "github:jspm/nodelibs-path@0.1.0": {
       "path-browserify": "npm:path-browserify@0.0.0"
@@ -208,6 +212,14 @@ System.config({
       "aurelia-metadata": "npm:aurelia-metadata@1.0.0-beta.1",
       "aurelia-templating": "npm:aurelia-templating@1.0.0-beta.1.0.2"
     },
+    "npm:buffer@3.6.0": {
+      "base64-js": "npm:base64-js@0.0.8",
+      "child_process": "github:jspm/nodelibs-child_process@0.1.0",
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "ieee754": "npm:ieee754@1.1.6",
+      "isarray": "npm:isarray@1.0.0",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
     "npm:core-js@1.2.6": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0",
@@ -229,9 +241,9 @@ System.config({
     "npm:process@0.11.2": {
       "assert": "github:jspm/nodelibs-assert@0.1.0"
     },
-    "npm:store@1.3.19": {
-      "fs": "github:jspm/nodelibs-fs@0.1.2",
-      "process": "github:jspm/nodelibs-process@0.1.2"
+    "npm:store@1.3.20": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "fs": "github:jspm/nodelibs-fs@0.1.2"
     },
     "npm:util@0.10.3": {
       "inherits": "npm:inherits@2.0.1",
