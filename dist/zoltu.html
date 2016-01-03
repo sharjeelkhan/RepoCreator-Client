@@ -203,71 +203,8 @@
             <div class="container newRepository_Content">
             	Works best with repositories that have magic replacement strings in them.
             </div>
-            <div class="panel-group container" id="accordion" role="tablist" aria-multiselectable="true">
-                  <div class="panel panel-default">
-                    <div class="panel-heading sponsoredTabs" role="tab" id="headingOne" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          Sponsored
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                      <div class="panel-body zoltuTextAzure">
-                      	<a href="#">
-                          <img src="images/Repo.png" height="42">
-                          <p class="zoltuText">Zoltu:Templates.AzureApiAppSimple</p>
-                        </a>
-                        <div class="zoltuSpanIcons">
-                            <span class="glyphicon glyphicon-star-empty starIconZoltu" aria-hidden="true"></span>
-                            <span class="dollarIconZoltu">$</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="panel panel-default">
-                    <div class="panel-heading sponsoredTabs" role="tab" id="headingTwo" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                          Favorites
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                      <div class="panel-body favoritesMainInner">
-                      	<p>Login with GitHub to see your favorites.</p>
-                        <div class="homeIcon">
-                        	<i class="the-icons icon-github-circled"></i>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="favoriteLoginButton">
-                        	<button type="button" class="headerLogin favoriteLogin">Login</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="panel panel-default">
-                    <div class="panel-heading sponsoredTabs" role="tab" id="headingTwo" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                          Popular
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                      <div class="panel-body zoltuTextAzure">
-                      	<a href="#">
-                          <img src="images/Repo.png" height="42">
-                          <p class="zoltuText">Zoltu:Templates.AzureApiAppSimple</p>
-                        </a>
-                        <div class="zoltuSpanIcons">
-                            <span class="glyphicon glyphicon-star-empty starIconZoltu" aria-hidden="true"></span>
-                            <span class="dollarIconZoltu">$</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="panel panel-default">
-                    <div class="panel-heading sponsoredTabs" role="tab" id="headingThree" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-                          Search
-                    </div>
-                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                      <div class="panel-body zoltuTextAzure">
-                      	<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 searchBox">
-                        	<input type="text" placeholder="GitHub Search Terms." />
-                            <button><i class="glyphicon glyphicon-search"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            <div  aurelia-app="source/main-zoltu">
+                <div style="text-align: center; font-size: 300%">Loading...</div>
             </div>
             <div id="faqSection" class="sectionBottom_FAQ">
             	Frequently asked questions(FAQ)
@@ -373,5 +310,11 @@
                  </div>
         	</div>
     </section>
-    </body>
+    <script src="jspm_packages/system.js"></script>
+    <script src="jspm-config.js"></script>
+    <script src="build.js"></script>
+    <script>
+        System.import('aurelia-bootstrapper');
+    </script>
+</body>
 </html>

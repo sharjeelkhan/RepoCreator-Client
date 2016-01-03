@@ -5,5 +5,5 @@ export function configure(aurelia: any) {
 		.plugin('aurelia-computed')
 		.plugin('aurelia-validation');
 
-	aurelia.start().then((x: any) => x.setRoot('source/app', document.body));
+	aurelia.start().then((x: any) => x.setRoot('source/repo-creator/index'));
 }
