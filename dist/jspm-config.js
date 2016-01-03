@@ -37,8 +37,7 @@ System.config({
     "aurelia-router": "npm:aurelia-router@1.0.0-beta.1",
     "aurelia-templating": "npm:aurelia-templating@1.0.0-beta.1.0.2",
     "aurelia-validation": "npm:aurelia-validation@0.6.0",
-    "auth0-lock": "github:auth0/lock@7.13.0",
-    "auth0/lock": "github:auth0/lock@8.0.0",
+    "auth0-lock": "bower:auth0-lock@8.0.4",
     "bootstrap": "github:twbs/bootstrap@3.3.6",
     "complete-modal": "local-component/complete-modal",
     "css": "github:systemjs/plugin-css@0.1.20",
@@ -47,6 +46,7 @@ System.config({
     "jquery": "github:components/jquery@2.1.4",
     "lz-string": "bower:lz-string@1.4.4",
     "nav-bar": "local-component/nav-bar",
+    "oauthio-web": "npm:oauthio-web@0.5.0",
     "pagedown": "npm:pagedown@1.1.0",
     "progress-modal": "local-component/progress-modal",
     "store": "npm:store@1.3.20",
@@ -231,6 +231,12 @@ System.config({
     },
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"
+    },
+    "npm:oauthio-web@0.5.0": {
+      "child_process": "github:jspm/nodelibs-child_process@0.1.0",
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
     "npm:pagedown@1.1.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"

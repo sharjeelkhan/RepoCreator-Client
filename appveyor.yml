@@ -18,7 +18,7 @@ install:
 - node_modules\.bin\jspm config registries.npm.timeouts.build 300
 - node_modules\.bin\jspm install
 build_script:
-- node_modules/.bin/jspm bundle source/**/* + aurelia-bootstrapper + aurelia-computed --minify --skip-source-maps
+- node_modules/.bin/jspm bundle source/**/* + aurelia-bootstrapper + aurelia-computed - source/services/OAuth-OAuthIo --minify --skip-source-maps
 cache:
 - node_modules -> package.json
 - dist/jspm_packages -> dist/jspm-config.js
