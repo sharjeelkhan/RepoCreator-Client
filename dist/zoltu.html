@@ -8,8 +8,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
 <link href="css/style.css" type="text/css" rel="stylesheet" />
 <link href="css/entypo.css" type="text/css" rel="stylesheet" />
-<!-- enable bootstrap popovers -->
-<script>$(function () { $('[data-toggle="popover"]').popover() })</script>
+<!-- enable bootstrap popovers while working around the problems with having multiple jqueries on a page (the second is baked in to the Aurelia application loaded in the footer) -->
+<script>
+    var outerJQuery = $.noConflict();
+    outerJQuery(function () { outerJQuery('[data-toggle="popover"]').popover(); })
+</script>
 <title>Zoltu</title>
 </head>
 <body>
