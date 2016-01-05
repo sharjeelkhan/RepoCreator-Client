@@ -1,4 +1,4 @@
-import { OAuth } from 'source/services/OAuth';
+import { OAuth } from 'source/services/OAuth-Auth0';
 import { autoinject } from 'aurelia-dependency-injection';
 import { HttpClient, RequestBuilder } from 'aurelia-http-client';
 

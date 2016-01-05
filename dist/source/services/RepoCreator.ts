@@ -1,6 +1,6 @@
 import { autoinject } from 'aurelia-dependency-injection';
 import { HttpClient, RequestBuilder, HttpResponseMessage } from 'aurelia-http-client';
-import { OAuth } from 'source/services/OAuth';
+import { OAuth } from 'source/services/OAuth-Auth0';
 import { StripeCheckout, StripeToken } from 'source/services/StripeCheckout';
 import { Repository } from 'source/models/Repository';
 import { SponsoredRepository } from 'source/models/SponsoredRepository';
@@ -125,7 +125,7 @@ export class RepoCreator {
 		});
 	}
 
-	cancelSponsorship(repository: Repository): Promise {
+	cancelSponsorship(repository: Repository): Promise<HttpResponseMessage> {
 		return this.oAuth.jwtToken.then(jwtToken => {
 			return this.httpClient.createRequest(`${baseUri}/api/sponsored/cancel/`)
 				.asDelete()

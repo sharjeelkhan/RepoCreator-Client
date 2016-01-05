@@ -1,6 +1,6 @@
 import { RepoCreator } from 'source/services/RepoCreator';
 import { Repository as RepositoryWireModel } from 'source/models/Repository';
-import { OAuth } from 'source/services/OAuth';
+import { OAuth } from 'source/services/OAuth-Auth0';
 import { GitHub } from 'source/services/GitHub';
 import { StripeCheckout, StripeToken } from 'source/services/StripeCheckout';
 import { Router } from 'aurelia-router';
@@ -238,7 +238,7 @@ export class ChooseRepository {
 		this.repoCreator.getPopular().then((repos: RepositoryWireModel[]) => {
 			let popularTemplates = underscore(repos).map((repo: RepositoryWireModel) => new Repository(repo.owner, repo.name, false, false, true, false));
 			this.mergeTemplates(popularTemplates);
-			
+
 		}).catch((error: Error) => {
 			this.eventAggregator.publish(error);
 		});
