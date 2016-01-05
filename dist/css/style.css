@@ -19,7 +19,7 @@ ul.newProjectList{font-family:'Roboto'; font-size:30px; font-weight:300; color:#
 .newTemplate_Heading{font-family:'Roboto'; font-size:48px; font-weight:300; color:#555555; text-align:center; margin-top:50px;}
 .section_CreatinNewTemplateMain p{font-family:'Roboto'; font-size:24px; font-weight:300; color:#555555; margin-top:30px;}
 .titleMagicApp{font-size: 24px; font-family: 'Roboto'; font-weight: 300; background: #f7f7f7; border: 1px solid #f7f7f7; margin-top: 20px; width: 70%; color:#555555; line-height: 50px;  padding-left: 10px;}
-.sectionBottom_Sponsorship{font-size: 60px; font-family: 'Roboto'; font-weight: 300; color: #ffffff; background: #33b8e8; text-align: center; margin: 0 auto; line-height: 160px; margin-top:50px;}
+.sectionBottom_Sponsorship{font-size: 60px; font-family: 'Roboto'; font-weight: 300; color: #ffffff; background: #33b8e8; text-align: center; margin: 0 auto; line-height: 160px; margin-top:50px; text-shadow: 2px 2px 1px #999;}
 .cco_heading_top{font-family:'Roboto'; font-size:36px; font-weight:100; color:#555555; background:#f7f7f7; border-bottom:1px solid #cccccc; padding: 10px;}
 .cco_heading{font-family:'Roboto'; font-size:30px; font-weight:300; color:#555555; padding-top:30px;}
 .cco_content{font-family:'Roboto'; font-size:20px; font-weight:300; color:#555555; padding-top:0px;}
@@ -29,7 +29,7 @@ ul.newProjectList{font-family:'Roboto'; font-size:30px; font-weight:300; color:#
 .sectionBottomCC0_Public{margin-top:50px; }
 .sectionPublicInnerContent{font-family:'Roboto'; font-size:24px; font-weight:300; color:#555555; padding-top:30px; text-align:justify;}
 .sectionBottom_templateRepository{font-size: 60px; font-family: 'Roboto'; font-weight: 300; color: #ffffff; background: #337990;
-text-align: center; margin: 0 auto; line-height: 160px; margin-top: 50px;}
+text-align: center; margin: 0 auto; line-height: 160px; margin-top: 50px; text-shadow: 2px 2px 1px #999;}
 .newRepository_Content{font-family:'Roboto'; font-size:30px; font-weight:300; color:#555555; padding-top:30px; text-align:center; padding-bottom: 20px;}
 .zoltuSpanIcons{float:right; padding: 5px; margin-top:3px;}
 .starIconZoltu{margin-right: 5px;}
@@ -39,7 +39,7 @@ text-align: center; margin: 0 auto; line-height: 160px; margin-top: 50px;}
 .zoltuText{float:left; padding-top: 10px;}
 .sponsoredTabs{background:#f7f7f7;font-family:'Roboto'; font-size:30px; font-weight:300; color:#555555 !important; }
 .sectionBottom_FAQ{font-size: 60px; font-family: 'Roboto'; font-weight: 300; color: #ffffff; background: #7a5993;
-text-align: center; margin: 0 auto; line-height: 160px; margin-top: 50px;} 
+text-align: center; margin: 0 auto; line-height: 160px; margin-top: 50px; text-shadow: 2px 2px 1px #999;} 
 .sectionBottom_questions{margin-top:50px;}
 .faqText{margin-bottom:0; font-family:'Roboto'; font-size:24px; font-weight:300; color:#555555;}
 .tabsIcon_menuDown{float:right; padding-top: 2px;}
@@ -63,7 +63,7 @@ text-align: center; color: #33b8e8 !important;}
 .favoriteLoginButton{text-align:center; margin-top:20px; }
 button.favoriteLogin:hover, button.favoriteLogin:active, button.favoriteLogin:focus:{width: 281px; height: 38px; border: 3px solid #40c5e5; background: white; color: #40c5e5; border-radius: 6px;    margin-top: -10px;}
 
-.sectionBottom-heading{font-size:60px; font-family: 'Roboto'; font-weight:300; color:#ffffff; background:#d9e45c; text-align:center; margin: 0 auto; line-height: 160px;}
+.sectionBottom-heading{font-size:60px; font-family: 'Roboto'; font-weight:300; color:#ffffff; background:#d9e45c; text-align:center; margin: 0 auto; line-height: 160px; text-shadow: 2px 2px 1px #999;}
 .sectionBottom{padding:100px 0;}
 .dollarIconZoltu{ font-weight:400;}
 
